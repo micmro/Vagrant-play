@@ -25,21 +25,6 @@ vagrant destroy
 
 More documentation on http://www.vagrantup.com/
 
-
-Control Mongo
+Update Play version
 ===================
-
-###### Start MongoDB
-```Shell
-sudo service mongodb start
-```
-
-###### Stop MongoDB
-```Shell
-sudo service mongodb stop
-```
-
-###### Restart MongoDB
-```Shell
-sudo service mongodb restart
-```
+Simply update the ```playVersion``` variable in bootstrap.sh
