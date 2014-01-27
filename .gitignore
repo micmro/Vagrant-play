@@ -1,0 +1,8 @@
+.DS_Store
+.vagrant
+.nodemonignore
+.sass-cache/
+node_modules/
+public/lib
+test/coverage/
+*.sublime-workspace
