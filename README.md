@@ -1,7 +1,7 @@
 play! Framework Vagrant File
 =========
 
-Sets up a precise64 box with Java, Scala and play!
+Sets up a precise64 Ubuntu box with Java, Scala and play!
 
 Follow installation guide on http://docs.vagrantup.com/v2/installation/index.html to install Vagrant and VirtualBox
 
