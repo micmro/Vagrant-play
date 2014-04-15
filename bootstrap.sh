@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
 #variable
-playVersion="2.2.1"
-#"2.1.4"
+playVersion="2.2.2"
 
 
 echo "Provision VM START"
