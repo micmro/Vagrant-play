@@ -25,6 +25,11 @@ rm typesafe-activator-$activatorVersion-minimal.zip
 
 #export PATH=/home/vagrant/activator-1.2.2-minimal:$PATH >> ~/.bashrc
 
+wget http://dl.bintray.com/sbt/debian/sbt-0.13.5.deb
+sudo dpkg -i sbt-0.13.5.deb
+sudo apt-get update
+sudo apt-get install sbt
+rm sbt-0.13.5.deb
 
 #add activator to environment variables
 echo "export PATH=/home/vagrant/activator-$activatorVersion-minimal:\$PATH" >> ~/.bashrc
@@ -34,7 +39,7 @@ echo "export SBT_OPTS=\"\$SBT_OPTS -Dsbt.jse.engineType=Node\"" >> ~/.bashrc
 #reset bash
 source ~/.bashrc
 
-#init and shop activator help
+#download dependencies and show activator help - so we don't need to wait later
 /home/vagrant/activator-$activatorVersion-minimal/activator help
 
 echo ""
