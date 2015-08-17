@@ -1,25 +1,27 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
-VAGRANTFILE_API_VERSION = "2"
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure(2) do |config|
+  # The most common configuration options are documented and commented below.
+  # For a complete reference, please see the online documentation at
+  # https://docs.vagrantup.com.
 
+  # Every Vagrant development environment requires a box. You can search for
+  # boxes at https://atlas.hashicorp.com/search.
+  config.vm.box = "ubuntu/trusty64"
 
-Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-
-  # box to build virtual evironment to build off of.
-  config.vm.box = "precise64"
-  # config.vm.box = "precise32"
-  
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
   # http://www.vagrantbox.es/
-  config.vm.box_url = "http://files.vagrantup.com/precise64.box"
-  # config.vm.box_url = "http://files.vagrantup.com/precise32.box"
+  # config.vm.box_url = "http://files.vagrantup.com/trusty64.box"
 
-  # configurating the vm 
+  # configurating the vm
   config.vm.provider "virtualbox" do |v|
-    v.name = "typesafe_activator_precise64"
+    v.name = "typesafe_activator_trusty64"
     # max 75% CPU cap
     v.customize ["modifyvm", :id, "--cpuexecutioncap", "75"]
     # give vm max 6GB ram
@@ -34,7 +36,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
   config.vm.network :forwarded_port, guest: 9000, host: 9000
-  config.vm.network :forwarded_port, guest: 9999, host: 9999 
+  config.vm.network :forwarded_port, guest: 9999, host: 9999
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.

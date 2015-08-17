@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 #variables
-activatorVersion="1.2.2"
-
+activatorVersion="1.3.5"
+sbtVersion="0.13.9"
 
 echo "Provision VM START"
 echo "=========================================="
@@ -10,11 +10,28 @@ echo "=========================================="
 sudo apt-get update
 
 #install prerequisits
-sudo apt-get install -y openjdk-7-jdk
+# sudo apt-get install -y openjdk-7-jdk
+# sudo apt-get install -y openjdk-8-jdk
+sudo apt-get -y -q upgrade
+sudo apt-get -y -q install software-properties-common htop
+sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get -y -q update
+echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
+echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
+sudo apt-get -y -q install oracle-java8-installer
+sudo apt-get -y -q install oracle-java7-installer
+sudo update-java-alternatives -s java-8-oracle
+
 sudo apt-get install -y scala
 sudo apt-get install -y unzip
 sudo apt-get install -y nodejs
+
+#install SBT
+wget http://dl.bintray.com/sbt/debian/sbt-$sbtVersion.deb
+sudo dpkg -i sbt-$sbtVersion.deb
 sudo apt-get update
+sudo apt-get install sbt
+rm sbt-$sbtVersion.deb
 
 #install typesafe activator
 cd /home/vagrant
@@ -23,13 +40,7 @@ wget http://downloads.typesafe.com/typesafe-activator/$activatorVersion/typesafe
 unzip -d /home/vagrant typesafe-activator-$activatorVersion-minimal.zip
 rm typesafe-activator-$activatorVersion-minimal.zip
 
-#export PATH=/home/vagrant/activator-1.2.2-minimal:$PATH >> ~/.bashrc
-
-wget http://dl.bintray.com/sbt/debian/sbt-0.13.5.deb
-sudo dpkg -i sbt-0.13.5.deb
-sudo apt-get update
-sudo apt-get install sbt
-rm sbt-0.13.5.deb
+#export PATH=/home/vagrant/activator-${activatorVersion}-minimal:$PATH >> ~/.bashrc
 
 #add activator to environment variables
 echo "export PATH=/home/vagrant/activator-$activatorVersion-minimal:\$PATH" >> ~/.bashrc
