@@ -14,7 +14,7 @@ sudo apt-get update
 # sudo apt-get install -y openjdk-8-jdk
 sudo apt-get -y -q upgrade
 sudo apt-get -y -q install software-properties-common htop
-sudo add-apt-repository ppa:webupd8team/java
+sudo add-apt-repository -y ppa:webupd8team/java
 sudo apt-get -y -q update
 echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
 echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
