@@ -24,8 +24,8 @@ Vagrant.configure(2) do |config|
     v.name = "typesafe_activator_trusty64"
     # max 75% CPU cap
     v.customize ["modifyvm", :id, "--cpuexecutioncap", "75"]
-    # give vm max 6GB ram
-    v.memory = 6144
+    # give vm max 2GB ram
+    v.memory = 2048
   end
 
   # run "bootstrap.sh" shell script when setting up our machine
@@ -42,17 +42,14 @@ Vagrant.configure(2) do |config|
   # using a specific IP.
   # config.vm.network :private_network, ip: "192.168.33.10"
 
-
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
   # your network.
   # config.vm.network :public_network
 
-
   # If true, then any SSH connections made will enable agent forwarding.
   # Default value: false
   # config.ssh.forward_agent = true
-
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
