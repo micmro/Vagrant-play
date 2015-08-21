@@ -117,15 +117,25 @@ unzip -d /home/vagrant typesafe-activator-$activatorVersion-minimal.zip
 rm typesafe-activator-$activatorVersion-minimal.zip
 #export PATH=/home/vagrant/activator-${activatorVersion}-minimal:$PATH >> ~/.bashrc
 
+###############################################
 #add activator to environment variables
+###############################################
 echo "export PATH=/home/vagrant/activator-$activatorVersion-minimal:\$PATH" >> ~/.bashrc
+
+###############################################
 #use node as default JavaScript Engine
+###############################################
 echo "export SBT_OPTS=\"\$SBT_OPTS -Dsbt.jse.engineType=Node\"" >> ~/.bashrc
 
+###############################################
 #reset bash
+###############################################
 source ~/.bashrc
 
-#download dependencies and show activator help - so we don't need to wait later
+###############################################
+# Download dependencies and show activator help
+# So we don't need to wait later
+###############################################
 /home/vagrant/activator-$activatorVersion-minimal/activator help
 
 echo ""
