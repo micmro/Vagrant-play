@@ -19,15 +19,20 @@ sudo apt-get -y -q install software-properties-common htop
 sudo apt-get -y -q install build-essential
 sudo apt-get -y -q install tcl8.5
 
+###############################################
+# Install Java 8
+###############################################
+# sudo apt-get install -y openjdk-8-jdk
 echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
-echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
 sudo apt-get -y -q install oracle-java8-installer
-sudo apt-get -y -q install oracle-java7-installer
 sudo update-java-alternatives -s java-8-oracle
 
-sudo apt-get install -y scala
-sudo apt-get install -y unzip
-sudo apt-get install -y nodejs
+###############################################
+# In case you need Java 7
+###############################################
+# sudo apt-get install -y openjdk-7-jdk
+#echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
+#sudo apt-get -y -q install oracle-java7-installer
 
 #install SBT
 wget http://dl.bintray.com/sbt/debian/sbt-$sbtVersion.deb
