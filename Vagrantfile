@@ -21,7 +21,7 @@ Vagrant.configure(2) do |config|
 
   # configurating the vm
   config.vm.provider "virtualbox" do |v|
-    v.name = "typesafe_activator_trusty64"
+    v.name = "spreadnet-app-in-trusty64"
     # max 75% CPU cap
     v.customize ["modifyvm", :id, "--cpuexecutioncap", "75"]
     # give vm max 2GB ram
@@ -55,6 +55,6 @@ Vagrant.configure(2) do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  config.vm.synced_folder "../activator-project", "/activator-project"
+  # config.vm.synced_folder "../activator-project", "/activator-project"
 
 end
