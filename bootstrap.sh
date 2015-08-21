@@ -75,20 +75,46 @@ sudo npm install coffee-script
 ###############################################
 npm install bower -g
 
+###############################################
 #install SBT
+###############################################
 wget http://dl.bintray.com/sbt/debian/sbt-$sbtVersion.deb
 sudo dpkg -i sbt-$sbtVersion.deb
 sudo apt-get update
 sudo apt-get install sbt
 rm sbt-$sbtVersion.deb
 
+###############################################
+#install Redis
+###############################################
+echo "Download redis..."
+wget http://download.redis.io/redis-stable.tar.gz
+tar xvzf redis-stable.tar.gz
+echo "Init install..."
+cd redis-stable
+make
+make test
+sudo su
+make install
+cd utils/
+printf '6379\n/etc/redis/6379.conf\n/var/log/redis_6379.log\n/var/lib/redis/6379\n/usr/local/bin/redis-server\n' | ./install_server.sh
+echo "Redis done"
+
+###############################################
+#install MongDB
+###############################################
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+echo "deb http://repo.mongodb.org/apt/ubuntu "$(lsb_release -sc)"/mongodb-org/3.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list
+sudo apt-get update
+sudo apt-get -y install mongodb-org
+
+###############################################
 #install typesafe activator
+###############################################
 cd /home/vagrant
 wget http://downloads.typesafe.com/typesafe-activator/$activatorVersion/typesafe-activator-$activatorVersion-minimal.zip
-
 unzip -d /home/vagrant typesafe-activator-$activatorVersion-minimal.zip
 rm typesafe-activator-$activatorVersion-minimal.zip
-
 #export PATH=/home/vagrant/activator-${activatorVersion}-minimal:$PATH >> ~/.bashrc
 
 #add activator to environment variables
