@@ -139,11 +139,26 @@ source ~/.bashrc
 /home/vagrant/activator-$activatorVersion-minimal/activator help
 
 echo ""
+echo ""
 echo "=========================================="
-#init and shop activator help
+echo "=========================================="
+echo "Dependencies installed:"
 echo "jdk version:"
 javac -version
-
-
+echo ""
+echo "Activator version:"
+activator --version
+echo ""
+echo "Redis version"
+redis-server -v
+echo ""
+echo "NodeJS version:"
+nodejs -v
+echo ""
+echo "NPM version"
+npm -v
+echo "=========================================="
+echo "=========================================="
+echo ""
 echo ""
 echo "Provision VM finished"
