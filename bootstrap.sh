@@ -34,6 +34,47 @@ sudo update-java-alternatives -s java-8-oracle
 #echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
 #sudo apt-get -y -q install oracle-java7-installer
 
+###############################################
+# Install Git
+###############################################
+#sudo apt-get -y install git-core
+
+###############################################
+# Install imagemagick
+###############################################
+#sudo apt-get -y install imagemagick
+
+###############################################
+# Install Scala
+###############################################
+sudo apt-get -y install scala
+
+###############################################
+# Install Unzip
+###############################################
+sudo apt-get -y install unzip
+
+###############################################
+# Install NodeJS
+###############################################
+sudo apt-get -y install nodejs
+ln -s /usr/bin/nodejs /user/bin/node
+
+###############################################
+# Install NPM
+###############################################
+sudo apt-get -y install npm
+
+###############################################
+#install CoffeeScript
+###############################################
+sudo npm install coffee-script
+
+###############################################
+#install Bower
+###############################################
+npm install bower -g
+
 #install SBT
 wget http://dl.bintray.com/sbt/debian/sbt-$sbtVersion.deb
 sudo dpkg -i sbt-$sbtVersion.deb
