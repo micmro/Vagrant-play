@@ -86,18 +86,18 @@ rm sbt-$sbtVersion.deb
 
 ###############################################
 #install Redis
+# More info about it: https://www.digitalocean.com/community/tutorials/how-to-install-and-use-redis
 ###############################################
 echo "Download redis..."
-wget http://download.redis.io/redis-stable.tar.gz
-tar xvzf redis-stable.tar.gz
+wget http://download.redis.io/releases/redis-stable.tar.gz
+tar xzf redis-stable.tar.gz
 echo "Init install..."
 cd redis-stable
 make
 make test
-sudo su
-make install
-cd utils/
-printf '6379\n/etc/redis/6379.conf\n/var/log/redis_6379.log\n/var/lib/redis/6379\n/usr/local/bin/redis-server\n' | ./install_server.sh
+sudo make install
+cd utils
+sudo ./install_server.sh
 echo "Redis done"
 
 ###############################################
