@@ -28,8 +28,8 @@ Vagrant.configure(2) do |config|
     v.memory = 2048
   end
 
-  # run "bootstrap.sh" shell script when setting up our machine
-  config.vm.provision :shell, :privileged => false, :path => "bootstrap.sh"
+  # run "machine-setup.sh" shell script when setting up our machine
+  config.vm.provision :shell, :privileged => false, :path => "machine-setup.sh"
 
 
   # Create a forwarded port mapping which allows access to a specific port
