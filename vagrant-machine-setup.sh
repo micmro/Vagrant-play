@@ -62,6 +62,11 @@ sudo apt-get -y install nodejs
 ln -s /usr/bin/nodejs /user/bin/node
 
 ###############################################
+# Install Node related stuff required by Play
+###############################################
+sudo apt-get -y install nodejs-legacy
+
+###############################################
 # Install NPM
 ###############################################
 sudo apt-get -y install npm
