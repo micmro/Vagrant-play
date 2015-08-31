@@ -155,10 +155,10 @@ source ~/.bashrc
 /home/vagrant/activator-$activatorVersion-minimal/activator help
 
 ###############################################
-# Show installation sumsary
+# Show installation summary
 ###############################################
 echo "=========================================="
-echo "Provision VM sumsary"
+echo "Provision VM summary"
 echo "=========================================="
 echo "Dependencies installed:"
 echo "jdk version:"
