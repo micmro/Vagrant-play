@@ -108,6 +108,11 @@ sudo apt-get -y install mongodb-org
 echo "MongDB done."
 
 ###############################################
+# Install MongDB Clients
+###############################################
+sudo apt-get -y install mongodb-clients
+
+###############################################
 # Install SBT
 ###############################################
 echo "Download SBT..."
