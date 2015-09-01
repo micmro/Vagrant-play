@@ -67,6 +67,11 @@ ln -s /usr/bin/nodejs /user/bin/node
 sudo apt-get -y install nodejs-legacy
 
 ###############################################
+# Install CoffeeScript
+###############################################
+sudo apt-get install coffeescript
+
+###############################################
 # Install NPM
 ###############################################
 sudo apt-get -y install npm
