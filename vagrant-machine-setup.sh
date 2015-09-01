@@ -82,9 +82,9 @@ sudo apt-get -y install npm
 sudo npm install -g bower
 
 ###############################################
-# Install Bower
+# Install Sass
 ###############################################
-npm install bower -g
+sudo gem install sass
 
 ###############################################
 # Install Redis
