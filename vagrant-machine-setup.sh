@@ -169,18 +169,24 @@ echo "=========================================="
 echo "Dependencies installed:"
 echo "jdk version:"
 javac -version
-echo ""
+echo " "
 echo "Activator version:"
 activator --version
-echo ""
+echo " "
 echo "Redis version"
 redis-server -v
-echo ""
+echo " "
 echo "NodeJS version:"
 nodejs -v
-echo ""
+echo " "
+echo "CoffeeScript version:"
+coffee --version
+echo " "
 echo "NPM version"
 npm -v
+echo "Sass version:"
+sass -v
+echo " "
 echo "=========================================="
 echo "Provision VM finished"
 echo "=========================================="
