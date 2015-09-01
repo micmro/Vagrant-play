@@ -77,9 +77,9 @@ sudo apt-get install coffeescript
 sudo apt-get -y install npm
 
 ###############################################
-# Install CoffeeScript
+# Install Bower
 ###############################################
-sudo npm install coffee-script
+sudo npm install -g bower
 
 ###############################################
 # Install Bower
