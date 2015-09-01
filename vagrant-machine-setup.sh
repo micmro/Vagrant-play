@@ -99,6 +99,7 @@ make test
 sudo make install
 cd utils
 sudo ./install_server.sh
+cd /home/vagrant/
 rm redis-stable.tar.gz
 echo "Redis done."
 
