@@ -171,8 +171,8 @@ echo " "
 echo "jdk version:"
 javac -version
 echo " "
-echo "Activator version:"
-activator --version
+# echo "Activator version:"
+# activator --version
 echo " "
 echo "Redis version"
 redis-server -v
