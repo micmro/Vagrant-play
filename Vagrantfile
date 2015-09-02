@@ -30,6 +30,7 @@ Vagrant.configure(2) do |config|
 
   # run "vagrant-machine-setup.sh" shell script when setting up our machine
   config.vm.provision :shell, :privileged => false, :path => "vagrant-machine-setup.sh"
+  config.vm.provision :shell, :privileged => false, :path => "vagrant-machine-run.sh",run: "always"
 
 
   # Create a forwarded port mapping which allows access to a specific port
