@@ -21,15 +21,16 @@ Vagrant.configure(2) do |config|
 
   # configurating the vm
   config.vm.provider "virtualbox" do |v|
-    v.name = "typesafe_activator_trusty64"
+    v.name = "activator-project-in-trusty64"
     # max 75% CPU cap
     v.customize ["modifyvm", :id, "--cpuexecutioncap", "75"]
     # give vm max 6GB ram
     v.memory = 6144
   end
 
-  # run "bootstrap.sh" shell script when setting up our machine
-  config.vm.provision :shell, :privileged => false, :path => "bootstrap.sh"
+  # run "vagrant-machine-setup.sh" shell script when setting up our machine
+  config.vm.provision :shell, :privileged => false, :path => "vagrant-machine-setup.sh"
+  config.vm.provision :shell, :privileged => false, :path => "vagrant-machine-run.sh",run: "always"
 
 
   # Create a forwarded port mapping which allows access to a specific port
@@ -42,17 +43,14 @@ Vagrant.configure(2) do |config|
   # using a specific IP.
   # config.vm.network :private_network, ip: "192.168.33.10"
 
-
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
   # your network.
   # config.vm.network :public_network
 
-
   # If true, then any SSH connections made will enable agent forwarding.
   # Default value: false
   # config.ssh.forward_agent = true
-
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
