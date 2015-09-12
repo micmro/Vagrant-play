@@ -121,7 +121,7 @@ sudo apt-get -y install mongodb-clients
 ###############################################
 # Install PostgreSQL
 ###############################################
-sudo apt-get install postgresql postgresql-contrib
+sudo apt-get -y install postgresql postgresql-contrib postgresql-client-common postgresql-common
 
 ###############################################
 # Install SBT
