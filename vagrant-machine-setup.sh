@@ -119,6 +119,11 @@ echo "Redis done."
 sudo apt-get -y install mongodb-clients
 
 ###############################################
+# Install PostgreSQL
+###############################################
+sudo apt-get install postgresql postgresql-contrib
+
+###############################################
 # Install SBT
 ###############################################
 echo "Download SBT..."
@@ -188,6 +193,9 @@ npm -v
 echo " "
 echo "Sass version:"
 sass -v
+echo " "
+echo "PostgreSQL version"
+psql -V
 echo " "
 echo "=========================================="
 echo "Provision VM finished"
