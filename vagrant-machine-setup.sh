@@ -124,6 +124,11 @@ sudo apt-get -y install mongodb-clients
 sudo apt-get -y install postgresql postgresql-contrib postgresql-client-common postgresql-common
 
 ###############################################
+# Install Git
+###############################################
+sudo apt-get -y install git
+
+###############################################
 # Install SBT
 ###############################################
 echo "Download SBT..."
@@ -196,6 +201,9 @@ sass -v
 echo " "
 echo "PostgreSQL version"
 psql -V
+echo " "
+echo "Git version"
+git --version
 echo " "
 echo "=========================================="
 echo "Provision VM finished"
