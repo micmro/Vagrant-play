@@ -1,9 +1,13 @@
 Typesafe Activator / play! Framework Vagrant File
 =========
 
-Sets up a trusty64 Ubuntu box (with 2GB RAM) with Java and the [Typesafe Activator](https://typesafe.com/activator) to get started with [play!](https://playframework.com) and rest of the [Typesafe Reactive Platform](https://typesafe.com/platform). Even though included in the activator this vagrant file also provision a stand-alone version of Scala and sbt - to use them seperatly.
+Sets up a trusty64 Ubuntu box (with 3GB RAM) with Java and the [Typesafe Activator](https://typesafe.com/activator) to get started with [play!](https://playframework.com) and rest of the [Typesafe Reactive Platform](https://typesafe.com/platform). Even though included in the activator this vagrant file also provision a stand-alone version of Scala and sbt - to use them seperatly.
 
 Follow installation guide on http://docs.vagrantup.com/v2/installation/index.html to install Vagrant and VirtualBox
+
+Setup
+======
+This Vagrantfile has grown to contain the setup for quite a few addons, feel free to comment out any storage and FE tooling you won't need in `vagrant-machine-setup.sh` before running `vagrant up` to setup the vm.
 
 Control Vagrant
 ===================
