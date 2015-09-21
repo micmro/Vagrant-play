@@ -138,12 +138,6 @@ echo "export PATH=/home/vagrant/activator-$activatorVersion-minimal:\$PATH" >> ~
 source ~/.bashrc
 
 ###############################################
-# Download dependencies and show activator help
-# So we don't need to wait later
-###############################################
-/home/vagrant/activator-$activatorVersion-minimal/activator help
-
-###############################################
 # Show installation summary
 ###############################################
 echo "=========================================="
