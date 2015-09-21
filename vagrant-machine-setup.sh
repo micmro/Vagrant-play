@@ -38,7 +38,7 @@ sudo update-java-alternatives -s java-8-oracle
 ###############################################
 # Install Git
 ###############################################
-#sudo apt-get -y install git-core
+sudo apt-get -y install git
 
 ###############################################
 # Install imagemagick
@@ -105,11 +105,6 @@ echo "Redis done."
 # Install PostgreSQL
 ###############################################
 sudo apt-get -y install postgresql postgresql-contrib postgresql-client-common postgresql-common
-
-###############################################
-# Install Git
-###############################################
-sudo apt-get -y install git
 
 ###############################################
 # Install SBT
