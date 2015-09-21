@@ -65,14 +65,14 @@ ln -s /usr/bin/nodejs /user/bin/node
 echo "export NODE_PATH=/usr/local/lib/node_modules" >> ~/.bashrc
 
 ###############################################
-# Install CoffeeScript
-###############################################
-sudo apt-get install coffeescript
-
-###############################################
 # Install NPM
 ###############################################
 sudo apt-get -y install npm
+
+###############################################
+# Install CoffeeScript
+###############################################
+sudo npm install -g coffee-script
 
 ###############################################
 # Install Bower
