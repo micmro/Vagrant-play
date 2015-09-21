@@ -115,7 +115,10 @@ sudo dpkg -i sbt-$sbtVersion.deb
 sudo apt-get update
 sudo apt-get install sbt
 rm sbt-$sbtVersion.deb
+
 echo "SBT done."
+# Use node as default JavaScript Engine
+echo "export SBT_OPTS=\"\$SBT_OPTS -Dsbt.jse.engineType=Node\"" >> ~/.bashrc
 
 ###############################################
 # Install typesafe activator
@@ -126,16 +129,8 @@ wget http://downloads.typesafe.com/typesafe-activator/$activatorVersion/typesafe
 unzip -d /home/vagrant typesafe-activator-$activatorVersion-minimal.zip
 rm typesafe-activator-$activatorVersion-minimal.zip
 echo "Typesafe Activator done."
-
-###############################################
 # Add activator to environment variables
-###############################################
 echo "export PATH=/home/vagrant/activator-$activatorVersion-minimal:\$PATH" >> ~/.bashrc
-
-###############################################
-# Use node as default JavaScript Engine
-###############################################
-echo "export SBT_OPTS=\"\$SBT_OPTS -Dsbt.jse.engineType=Node\"" >> ~/.bashrc
 
 ###############################################
 # Reset bash
