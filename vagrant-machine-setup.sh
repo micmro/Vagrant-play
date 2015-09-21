@@ -65,11 +65,6 @@ ln -s /usr/bin/nodejs /user/bin/node
 echo "export NODE_PATH=/usr/local/lib/node_modules" >> ~/.bashrc
 
 ###############################################
-# Install Node related stuff required by Play
-###############################################
-sudo apt-get -y install nodejs-legacy
-
-###############################################
 # Install CoffeeScript
 ###############################################
 sudo apt-get install coffeescript
