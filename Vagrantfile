@@ -24,8 +24,8 @@ Vagrant.configure(2) do |config|
     v.name = "activator-project-in-trusty64"
     # max 75% CPU cap
     v.customize ["modifyvm", :id, "--cpuexecutioncap", "75"]
-    # give vm max 6GB ram
-    v.memory = 6144
+    # give vm max 3GB ram
+    v.memory = 3072
   end
 
   # run "vagrant-machine-setup.sh" shell script when setting up our machine
@@ -56,6 +56,6 @@ Vagrant.configure(2) do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  config.vm.synced_folder "../activator-project", "/activator-project"
+  config.vm.synced_folder "../activator-project", "/activator-project", create: true
 
 end
