@@ -163,29 +163,29 @@ echo " "
 echo "jdk version:"
 javac -version
 echo " "
-# echo "Activator version:"
-# activator --version
-echo " "
-echo "Redis version"
-redis-server -v
-echo " "
 echo "NodeJS version:"
-nodejs -v
-echo " "
-echo "CoffeeScript version:"
-coffee --version
+node -v
 echo " "
 echo "NPM version"
 npm -v
 echo " "
+echo "CoffeeScript version:"
+coffee -v
+echo " "
+echo "Bower version:"
+bower -v
+echo " "
 echo "Sass version:"
 sass -v
+echo " "
+echo "Redis version"
+redis-server -v
 echo " "
 echo "PostgreSQL version"
 psql -v
 echo " "
-echo "Git version"
-git --version
+echo "mongoDB version"
+mongod --version
 echo " "
 echo "=========================================="
 echo "Provision VM finished"
