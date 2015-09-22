@@ -38,7 +38,7 @@ sudo update-java-alternatives -s java-8-oracle
 ###############################################
 # Install Git
 ###############################################
-#sudo apt-get -y install git-core
+sudo apt-get -y install git
 
 ###############################################
 # Install imagemagick
@@ -58,23 +58,21 @@ sudo apt-get -y install unzip
 ###############################################
 # Install NodeJS
 ###############################################
+curl --silent --location https://deb.nodesource.com/setup_4.x | sudo bash -
 sudo apt-get -y install nodejs
 ln -s /usr/bin/nodejs /user/bin/node
-
-###############################################
-# Install Node related stuff required by Play
-###############################################
-sudo apt-get -y install nodejs-legacy
-
-###############################################
-# Install CoffeeScript
-###############################################
-sudo apt-get install coffeescript
+# Add node_modules to environment variables
+echo "export NODE_PATH=/usr/local/lib/node_modules" >> ~/.bashrc
 
 ###############################################
 # Install NPM
 ###############################################
 sudo apt-get -y install npm
+
+###############################################
+# Install CoffeeScript
+###############################################
+sudo npm install -g coffee-script
 
 ###############################################
 # Install Bower
@@ -104,29 +102,9 @@ rm redis-stable.tar.gz
 echo "Redis done."
 
 ###############################################
-# Install MongDB
-###############################################
-# echo "Download MongoDB..."
-# sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
-# echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list
-# sudo apt-get update
-# sudo apt-get -y install mongodb-org
-# echo "MongDB done."
-
-###############################################
-# Install MongDB Clients
-###############################################
-sudo apt-get -y install mongodb-clients
-
-###############################################
 # Install PostgreSQL
 ###############################################
 sudo apt-get -y install postgresql postgresql-contrib postgresql-client-common postgresql-common
-
-###############################################
-# Install Git
-###############################################
-sudo apt-get -y install git
 
 ###############################################
 # Install SBT
@@ -137,7 +115,10 @@ sudo dpkg -i sbt-$sbtVersion.deb
 sudo apt-get update
 sudo apt-get install sbt
 rm sbt-$sbtVersion.deb
+
 echo "SBT done."
+# Use node as default JavaScript Engine
+echo "export SBT_OPTS=\"\$SBT_OPTS -Dsbt.jse.engineType=Node\"" >> ~/.bashrc
 
 ###############################################
 # Install typesafe activator
@@ -148,16 +129,8 @@ wget http://downloads.typesafe.com/typesafe-activator/$activatorVersion/typesafe
 unzip -d /home/vagrant typesafe-activator-$activatorVersion-minimal.zip
 rm typesafe-activator-$activatorVersion-minimal.zip
 echo "Typesafe Activator done."
-
-###############################################
 # Add activator to environment variables
-###############################################
 echo "export PATH=/home/vagrant/activator-$activatorVersion-minimal:\$PATH" >> ~/.bashrc
-
-###############################################
-# Use node as default JavaScript Engine
-###############################################
-echo "export SBT_OPTS=\"\$SBT_OPTS -Dsbt.jse.engineType=Node\"" >> ~/.bashrc
 
 ###############################################
 # Reset bash
@@ -165,10 +138,19 @@ echo "export SBT_OPTS=\"\$SBT_OPTS -Dsbt.jse.engineType=Node\"" >> ~/.bashrc
 source ~/.bashrc
 
 ###############################################
-# Download dependencies and show activator help
-# So we don't need to wait later
+# Install MongDB
 ###############################################
-/home/vagrant/activator-$activatorVersion-minimal/activator help
+echo "Download MongoDB..."
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list
+sudo apt-get update
+sudo apt-get -y install mongodb-org
+echo "MongDB done."
+
+###############################################
+# Reset bash
+###############################################
+source ~/.bashrc
 
 ###############################################
 # Show installation summary
@@ -181,29 +163,29 @@ echo " "
 echo "jdk version:"
 javac -version
 echo " "
-# echo "Activator version:"
-# activator --version
-echo " "
-echo "Redis version"
-redis-server -v
-echo " "
 echo "NodeJS version:"
-nodejs -v
-echo " "
-echo "CoffeeScript version:"
-coffee --version
+node -v
 echo " "
 echo "NPM version"
 npm -v
 echo " "
+echo "CoffeeScript version:"
+coffee -v
+echo " "
+echo "Bower version:"
+bower -v
+echo " "
 echo "Sass version:"
 sass -v
 echo " "
-echo "PostgreSQL version"
-psql -V
+echo "Redis version"
+redis-server -v
 echo " "
-echo "Git version"
-git --version
+echo "PostgreSQL version"
+psql -v
+echo " "
+echo "mongoDB version"
+mongod --version
 echo " "
 echo "=========================================="
 echo "Provision VM finished"
