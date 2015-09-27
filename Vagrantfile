@@ -15,9 +15,18 @@ Vagrant.configure(2) do |config|
   config.vm.provision :shell, :privileged => false, :path => "vagrant-machine-setup.sh"
   config.vm.provision :shell, :privileged => false, :path => "vagrant-machine-run.sh",run: "always"
 
-  config.vm.network :forwarded_port, guest: 9000, host: 9000
-  config.vm.network :forwarded_port, guest: 9999, host: 9999
+  forward_port = ->(guest, host = guest) do
+      config.vm.network :forwarded_port,
+        guest: guest,
+        host: host,
+        auto_correct: true
+  end
+
+  forward_port[9000]           # activator run
+  forward_port[8888]           # activator ui     
+  forward_port[9999]           # unknow     
 
   config.vm.synced_folder "source-code/", "/home/vagrant/source-code", create: true
+  config.vm.synced_folder "teste/", "/home/vagrant/teste", create: true
 
 end
