@@ -1,41 +1,22 @@
-Typesafe Activator / play! Framework Vagrant File
+MAC0332 - Software Engineering Project (IME-USP) [2015]
 =========
-
-Sets up a trusty64 Ubuntu box (with 3GB RAM) with Java and the [Typesafe Activator](https://typesafe.com/activator) to get started with [play!](https://playframework.com) and rest of the [Typesafe Reactive Platform](https://typesafe.com/platform). Even though included in the activator this vagrant file also provision a stand-alone version of Scala and sbt - to use them seperatly.
-
-Follow installation guide on http://docs.vagrantup.com/v2/installation/index.html to install Vagrant and VirtualBox
+For original description of this repository see ORIGINAL_README.md.  
 
 Setup
-======
-This Vagrantfile has grown to contain the setup for quite a few addons, feel free to comment out any storage and FE tooling you won't need in `vagrant-machine-setup.sh` before running `vagrant up` to setup the vm.
+========
+First of all you need the virtualbox >= 5 installed on your machine and the newest version of vagrant. For this run the following commands (Linux-like):  
 
-Control Vagrant
-===================
+    sudo apt-get update
+    sudo apt-get install virtualbox-5.0
 
-###### Start box
-```Shell
-vagrant up
-```
+Then [install vagrant](http://www.vagrantup.com/downloads) according to your SO. After that clone this repository and inside the project folder run the following commands : 
 
-###### SSH into box
-```Shell
-vagrant ssh
-```
+    vagrant up
+    
+This will start the installation of vagrant box, could take some time to finished. When the installation ends run : 
 
-###### Shut down box
-```Shell
-vagrant halt
-```
+    vagrant ssh
 
-###### Tear down box
-```Shell
-vagrant destroy
-```
+This will connect your terminal to vagrant box. All the stuffs that you need to run your application will be installed inside the box. The folder **source_code** is a synced folder between vagrant and your machine. You could edit the source code outside the vagrant box and all the changes will automatically applied inside the box.  
 
-More documentation on http://www.vagrantup.com/
-
-Running your existing app in Vagrant
-===================
-Store your existing app in a folder named `activator-project` as a sibling of the one containing the Vagrant files. `vagrant up` the box and `vagrant ssh` into it. Now you can `cd /activator-project/` and start it via `activator run`.
-
-You might have to restart vagrant box before running your app the first time, if the activator hangs on installing sbt.
+For more informations about [vagrant](https://docs.vagrantup.com/v2/) and [play-framework](https://www.playframework.com/documentation) check the official documentation.  
