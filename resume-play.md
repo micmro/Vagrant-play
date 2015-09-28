@@ -8,4 +8,7 @@ O arquivo **config/routes** armazena as rotas da aplicação. Ele é composto de
 + URI da aplicação
 + Classe que será chamada a URL com um dos métodos do HTTP
 
+  activator ~run  
+
+Compilação on the fly de qualquer mudança.
 
