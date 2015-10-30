@@ -1,5 +1,6 @@
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Random;
 
 public class Tunnel
 {
@@ -41,6 +42,7 @@ public class Tunnel
   private static String generate_shortened_url(String original)
   {
     String generated = "";
+    Random random = new Random(System.currentTimeMillis());
 
     if(original.contains("www.")) {
       original = original.split("www\\.")[1];
@@ -53,7 +55,7 @@ public class Tunnel
         value += original.charAt(index++);
       }
       original_size -= actual_char;
-      generated += replace_by_value(value % 62);
+      generated += replace_by_value((value + random.nextInt(62)) % 62);
     }
 
     return generated;
