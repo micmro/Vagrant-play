@@ -1,7 +1,4 @@
-<!DOCTYPE html>
-
-<html lang="en">
-    <body>
-        
-    </body>
-</html>
+@helper.form(action = routes.Application.tunnel()){
+  <input type='text' name='originalLink' />
+  <input type='submit' name='submitLink' value='Dig it!' />
+}

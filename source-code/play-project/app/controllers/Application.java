@@ -2,12 +2,13 @@ package controllers;
 
 import play.*;
 import play.mvc.*;
+import play.data.*;
 
 import views.html.*;
 
 public class Application extends Controller {
 
-    Tunnel tnl = new Tunnel();
+    private Tunnel tnl = new Tunnel();
 
     public Result index() {
         return ok(index.render("Your new application is ready."));
@@ -18,8 +19,9 @@ public class Application extends Controller {
     }
 
     public Result tunnel() {
-      String new_url = tnl.dig("here_is_my_link.com");
-      System.out.println("AQUI:" + new_url);
+      String shortened = null, original = Form.form().bindFromRequest().get("originalLink");
+      if(original != null)
+        shortened = tnl.dig(original);
       return ok(tunnel.render());
     }
 }
