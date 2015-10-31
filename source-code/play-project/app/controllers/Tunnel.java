@@ -18,8 +18,6 @@ public class Tunnel extends Controller {
   private long minutes10 = 600000;
   //New URL will be generated using 6 shovels
   private static int small_url_size = 6;
-
-  private String new_url = "dwarfurl.com/";
   private HashMap<String, Link> hash = new HashMap<String, Link>();
 
   public String dig(String original_link)
@@ -29,7 +27,15 @@ public class Tunnel extends Controller {
     generated = generate_shortened_url(original_link);
     generated = insert_link(generated, original_link);
 
-    return new_url + generated;
+    return generated;
+  }
+
+  public boolean have(String generated) {
+    return hash.containsKey(generated);
+  }
+
+  public String end_point(String generated) {
+    return (hash.get(generated)).get_original_link();
   }
 
   private String insert_link(String generated, String original_link)

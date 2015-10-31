@@ -1,4 +1,10 @@
-@helper.form(action = routes.Application.tunnel()){
-  <input type='text' name='originalLink' />
-  <input type='submit' name='submitLink' value='Dig it!' />
-}
+@(shovel: String)
+
+<!DOCTYPE html>
+
+<html lang="en">
+    <body>
+      <p>Here is your shortened link!</p>
+        dwarfurl.com/@shovel
+    </body>
+</html>
