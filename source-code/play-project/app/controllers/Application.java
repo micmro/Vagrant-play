@@ -30,16 +30,12 @@ public class Application extends Controller {
     }
 
     public Result tunnel(String shovels) {
-        return ok(tunnel.render(shovels));
+        if(!tnl.have(shovels)) return forbidden();
+        else return ok(tunnel.render(shovels));
     }
 
     public Result shovel(String shovels) {
-      if(!tnl.have(shovels)) {
-        return forbidden();
-      }
-      else {
-        //TODO: Redirect me to the external URL stored in tnl.end_point(shovels) 
-        return ok(tnl.end_point(shovels));
-      }
+      if(!tnl.have(shovels)) return forbidden();
+      else return redirect("http://" + tnl.end_point(shovels));
     }
 }

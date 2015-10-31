@@ -24,18 +24,27 @@ public class Tunnel extends Controller {
   {
     String generated;
 
+    original_link = trim_link(original_link);
     generated = generate_shortened_url(original_link);
     generated = insert_link(generated, original_link);
 
     return generated;
   }
 
-  public boolean have(String generated) {
+  public boolean have(String generated)
+  {
     return hash.containsKey(generated);
   }
 
-  public String end_point(String generated) {
+  public String end_point(String generated)
+  {
     return (hash.get(generated)).get_original_link();
+  }
+
+  private String trim_link(String original) {
+    if(original.contains("://")) original = original.split("://")[1];
+    if(original.contains("www.")) original = original.split("www\\.")[1];
+    return original;
   }
 
   private String insert_link(String generated, String original_link)
@@ -63,10 +72,6 @@ public class Tunnel extends Controller {
   {
     String generated = "";
     Random random = new Random(System.currentTimeMillis());
-
-    if(original.contains("www.")) {
-      original = original.split("www\\.")[1];
-    }
 
     for(int index = 0, new_size = small_url_size, original_size = original.length(); new_size > 0; new_size--) {
       int value = 0, actual_char;
