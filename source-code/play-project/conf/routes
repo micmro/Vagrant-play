@@ -5,9 +5,11 @@
 # Home page
 GET     /                           controllers.Application.index()
 GET     /test                       controllers.Application.test()
-GET     /dig                     controllers.Application.dig()
-GET     /dig/:link               controllers.Application.tunnel(link:String)
+GET     /dig                        controllers.Application.dig()
+GET     /dig/:link                  controllers.Application.tunnel(link:String)
 GET     /:link                      controllers.Application.shovel(link:String)
+GET     /users/new                  controllers.Users.create()
+POST    /users                      controllers.Users.postForm()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
