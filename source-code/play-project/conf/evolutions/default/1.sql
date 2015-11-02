@@ -6,5 +6,8 @@ CREATE TABLE Users (
   PRIMARY KEY (id)
 );
 
+CREATE SEQUENCE users_seq;
+
 # --- !Downs
 DROP TABLE Users;
+DROP SEQUENCE IF EXISTS users_seq;

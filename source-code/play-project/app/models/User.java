@@ -11,7 +11,9 @@ import play.data.validation.*;
 public class User extends Model {
 
   @Id
-  public Long id;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id", nullable = false)
+  private Long id;
 
   @Column
   @Constraints.Required
