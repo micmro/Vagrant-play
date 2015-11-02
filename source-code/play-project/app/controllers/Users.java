@@ -22,8 +22,15 @@ public class Users extends Controller {
       return badRequest(views.html.user.form.render(userForm));
     else {
       User user = userForm.get();
-      user.save();
-      return redirect(controllers.routes.Users.create());
+      if(user.username_available(user.username)) {
+        user.save();
+        /*TODO: Raise message that user was successuly created*/
+        return redirect(controllers.routes.Application.test());
+      }
+      else {
+        /*TODO: Raise error to the view: "Username already in use. Select another!"*/
+        return redirect(controllers.routes.Users.create());
+      }
     }
   }
 }

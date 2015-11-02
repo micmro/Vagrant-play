@@ -20,7 +20,13 @@ public class User extends Model {
   public String username;
   public String password;
 
-  public static Finder<Long, User> find = new Finder<Long, User>(Long.class, User.class);
+  public static Finder<String, User> find = new Finder<String, User>(String.class, User.class);
+
+  public static boolean username_available(String username)
+  {
+    if(find.where().like("username", username).findList().size() > 0) return false;
+    else return true;
+  }
 
   public Long get_id() {
     return id;
