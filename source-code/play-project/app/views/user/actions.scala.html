@@ -1,3 +1,16 @@
 @(username: String)
 
 Hello, @username! This is your control panel. From here, you can create different types of links.
+
+@helper.form(action = routes.Application.dig()){
+  <input type='submit' name='short' value='Create Short Link!' />
+}
+@helper.form(action = routes.Application.dig()){
+  <input type='submit' name='temporary' value='Create Temporary Link!' />
+}
+@helper.form(action = routes.Application.dig()){
+  <input type='submit' name='custom' value='Create Customized Link!' />
+}
+@helper.form(action = routes.Application.dig()){
+  <input type='submit' name='private' value='Create Private Link!' />
+}
