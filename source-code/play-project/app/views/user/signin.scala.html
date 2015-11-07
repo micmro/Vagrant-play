@@ -76,8 +76,10 @@
                     <div class="col-md-8 col-md-offset-1">
                       <h2> Sign In </h2>
                         @helper.form(action = routes.Users.signin()){
-                          <p>Username: <input type='text' name='username' /> </p>
-                          <p>Password: <input type='text' name='password' /> </p>
+                          <p>Username: <input type='text' name='username' 
+                                    style ="color:#000000"/> </p>
+                          <p>Password: <input type='password' name='password'
+                                    style ="color:#000000"/> </p>
                           <p><input type='submit' name='submitLink' value='Sign in!'
                                     style ="color:#000000; border:solid 1px #555"/> </p>
                         }
