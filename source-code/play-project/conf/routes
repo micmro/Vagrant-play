@@ -7,7 +7,7 @@
 GET     /                           controllers.Application.test()
 GET     /dig                        controllers.Application.dig()
 GET     /dig/:link                  controllers.Application.tunnel(link:String)
-POST    /signup                     controllers.Users.postForm()
+POST    /signup                     controllers.Users.signup()
 GET     /signup                     controllers.Users.create()
 GET     /signin                     controllers.Users.signin()
 GET     /:username                  controllers.Users.account(username:String)

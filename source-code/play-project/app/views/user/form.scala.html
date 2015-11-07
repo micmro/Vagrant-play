@@ -1,7 +1,0 @@
-@(userForm: Form[models.User])
-
-@helper.form(action = routes.Users.postForm()) {
-  @helper.inputText(userForm("username"))
-  @helper.inputText(userForm("password"))
-  <input type="submit">
-}

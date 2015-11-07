@@ -16,7 +16,7 @@ public class Users extends Controller {
   public Result create()
   {
     Form<User> form = Form.form(User.class);
-    return ok(views.html.user.form.render(form));
+    return ok(views.html.user.signup.render(form));
   }
 
   public Result signin()
@@ -29,8 +29,8 @@ public class Users extends Controller {
         return redirect(controllers.routes.Users.account(username));
       }
       else
-        /*TODO: Raise in thw view Wrong username/password message*/
-        return ok(views.html.user.signin.render());
+        flash("login_error","Nome de usuário ou senha inválidos!");
+        return redirect("/signin");
     }
     return ok(views.html.user.signin.render());
   }
@@ -77,12 +77,12 @@ public class Users extends Controller {
     else return ok(views.html.user.actions.render(username));
   }
 
-  public Result postForm()
+  public Result signup()
   {
     Form<User> userForm = Form.form(User.class).bindFromRequest();
 
     if(userForm.hasErrors())
-      return badRequest(views.html.user.form.render(userForm));
+      return badRequest(views.html.user.signup.render(userForm));
     else {
       User user = userForm.get();
       if(user.username_available(user.username)) {
@@ -96,4 +96,14 @@ public class Users extends Controller {
       }
     }
   }
+
+  public Result account(String username)
+  {
+    Form<User> form = Form.form(User.class);
+    if(request().getHeader("referer") == null)
+      /*TODO: Raise "You are not allowed to access this route directly from browser"*/
+      return forbidden("You are not allowed to access this route directly from the browser");
+    else return ok(views.html.user.actions.render(username));
+  }
+
 }
