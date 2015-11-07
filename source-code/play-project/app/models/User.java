@@ -19,6 +19,7 @@ public class User extends Model {
   @Column
   @Constraints.Required
   public String username;
+  @Constraints.Required
   public String password;
 
   public static Finder<String, User> find = new Finder<String, User>(String.class, User.class);
@@ -27,6 +28,16 @@ public class User extends Model {
   {
     if(find.where().like("username", username).findList().size() > 0) return false;
     else return true;
+  }
+
+  public static boolean authenticate(String username, String password)
+  {
+    List<User> list = find.where().like("username", username).findList();
+    if(list.size() > 0) {
+      String pass = list.get(0).get_password();
+      if(pass.equals(password)) return true;
+    }
+    return false;
   }
 
   public Long get_id() {

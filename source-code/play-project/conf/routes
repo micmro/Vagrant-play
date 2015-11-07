@@ -10,6 +10,7 @@ GET     /dig/:link                  controllers.Application.tunnel(link:String)
 GET     /:link                      controllers.Application.shovel(link:String)
 POST    /users                      controllers.Users.postForm()
 GET     /users/new                  controllers.Users.create()
+GET     /users/signin               controllers.Users.signin()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

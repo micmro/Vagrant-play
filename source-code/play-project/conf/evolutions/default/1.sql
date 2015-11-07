@@ -26,3 +26,4 @@ create table Users (
 drop table if exists URLs cascade;
 
 drop table if exists Users cascade;
+

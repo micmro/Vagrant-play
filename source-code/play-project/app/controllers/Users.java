@@ -14,6 +14,21 @@ public class Users extends Controller {
     return ok(views.html.user.form.render(form));
   }
 
+  public Result signin()
+  {
+    String username = Form.form().bindFromRequest().get("username");
+    String password = Form.form().bindFromRequest().get("password");
+    if(username != null && !username.isEmpty() && password != null && !password.isEmpty()) {
+      if(User.authenticate(username, password))
+        /*TODO: Users logged in. Change redirect route*/
+        return redirect(controllers.routes.Application.test());
+      else
+        /*TODO: Raise in thw view Wrong username/password message*/
+        return ok(views.html.user.signin.render());
+    }
+    return ok(views.html.user.signin.render());
+  }
+
   public Result postForm()
   {
     Form<User> userForm = Form.form(User.class).bindFromRequest();

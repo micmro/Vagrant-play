@@ -19,7 +19,9 @@ public class URL extends Model {
   @Column
   @Constraints.Required
   public String owner;  /*generated URL owners username*/
+  @Constraints.Required
   public String generated;
+  @Constraints.Required
   public String original;
 
   public static Finder<String, URL> find = new Finder<String, URL>(String.class, URL.class);
