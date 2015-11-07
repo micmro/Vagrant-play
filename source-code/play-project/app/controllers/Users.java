@@ -29,7 +29,8 @@ public class Users extends Controller {
       }
       else
         /*TODO: Raise in thw view Wrong username/password message*/
-        return ok(views.html.user.signin.render());
+        flash("login_error","Nome de usuário ou senha inválidos!");
+        return redirect("/signin");
     }
     return ok(views.html.user.signin.render());
   }
