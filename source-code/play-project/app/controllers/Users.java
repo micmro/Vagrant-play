@@ -68,14 +68,6 @@ public class Users extends Controller {
       }
   }
 
-  public Result account(String username)
-  {
-    Form<User> form = Form.form(User.class);
-    if(request().getHeader("referer") == null)
-      /*TODO: Raise "You are not allowed to access this route directly from browser"*/
-      return forbidden("You are not allowed to access this route directly from the browser");
-    else return ok(views.html.user.actions.render(username));
-  }
 
   public Result signup()
   {
