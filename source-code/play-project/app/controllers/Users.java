@@ -5,8 +5,12 @@ import play.mvc.*;
 import play.data.*;
 import views.html.*;
 import models.*;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Users extends Controller {
+
+  private List<String> online = new ArrayList<String>();
 
   public Result create()
   {
@@ -19,14 +23,24 @@ public class Users extends Controller {
     String username = Form.form().bindFromRequest().get("username");
     String password = Form.form().bindFromRequest().get("password");
     if(username != null && !username.isEmpty() && password != null && !password.isEmpty()) {
-      if(User.authenticate(username, password))
-        /*TODO: Users logged in. Change redirect route*/
-        return redirect(controllers.routes.Application.test());
+      if(User.authenticate(username, password)) {
+        if(!online.contains(username)) online.add(username);
+        return redirect(controllers.routes.Users.account(username));
+      }
       else
         /*TODO: Raise in thw view Wrong username/password message*/
         return ok(views.html.user.signin.render());
     }
     return ok(views.html.user.signin.render());
+  }
+
+  public Result account(String username)
+  {
+    Form<User> form = Form.form(User.class);
+    if(request().getHeader("referer") == null)
+      /*TODO: Raise "You are not allowed to access this route directly from browser"*/
+      return forbidden("You are not allowed to access this route directly from the browser");
+    else return ok(views.html.user.actions.render(username));
   }
 
   public Result postForm()
