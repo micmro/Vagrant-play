@@ -20,13 +20,21 @@ public class Tunnel extends Controller {
   private static int small_url_size = 6;
   private HashMap<String, Link> hash = new HashMap<String, Link>();
 
-  public String dig(String original_link)
+  public String dig(String original_link, String user)
   {
     String generated;
+    String user_urls;
 
     original_link = trim_link(original_link);
     generated = generate_shortened_url(original_link);
-    generated = insert_link(generated, original_link);
+    /*If its a member...*/
+    if(!user.isEmpty())
+      while(URL.already_generated(user, generated)) {
+        generated = generate_shortened_url(generated);
+        System.out.println(generated);
+      }
+    /*Otherwise*/
+    else generated = insert_link(generated, original_link);
 
     return generated;
   }

@@ -2,7 +2,7 @@
 
 Hello, @username! This is your control panel. From here, you can create different types of links.
 
-@helper.form(action = routes.Application.dig()){
+@helper.form(action = routes.Users.shorten(username)){
   <input type='submit' name='short' value='Create Short Link!' />
 }
 @helper.form(action = routes.Application.dig()){
@@ -13,4 +13,9 @@ Hello, @username! This is your control panel. From here, you can create differen
 }
 @helper.form(action = routes.Application.dig()){
   <input type='submit' name='private' value='Create Private Link!' />
+}
+
+@helper.form(action = routes.Application.dig()){
+  You can also click on the following button to see all your links.
+  <input type='submit' name='private' value='List My Links' />
 }

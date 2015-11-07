@@ -7,6 +7,7 @@ import views.html.*;
 import models.*;
 import java.util.List;
 import java.util.ArrayList;
+import java.time.LocalDate;
 
 public class Users extends Controller {
 
@@ -32,6 +33,39 @@ public class Users extends Controller {
         return ok(views.html.user.signin.render());
     }
     return ok(views.html.user.signin.render());
+  }
+
+  public Result shorten(String username)
+  {
+    String shortened = null, original = Form.form().bindFromRequest().get("originalLink");
+
+    if(request().getHeader("referer") == null || !request().getHeader("referer").contains("/" + username))
+      return forbidden("You are not allowed to access this route directly from the browser");
+
+    if(original != null && !original.isEmpty()) {
+      Tunnel tnl = new Tunnel();
+      shortened = tnl.dig(original, username);
+      return redirect(controllers.routes.Users.result(username, original, shortened));
+    }
+
+    return ok(views.html.user.shorten.render(username));
+  }
+
+
+  /*NOTE: This method is supposed to handle the 4 types of links!*/
+  public Result result(String username, String original, String generated) {
+      if(request().getHeader("referer") == null || !request().getHeader("referer").contains("/shorten"))
+        return forbidden();
+      else {
+        URL url = new URL();
+        url.set_owner(username);
+        url.set_generated(generated);
+        url.set_original(original);
+        url.set_creation(LocalDate.now());
+        if(request().getHeader("referer").contains("/shorten")) url.set_type('s');
+        url.save();
+        return ok(views.html.user.result.render(generated, username));
+      }
   }
 
   public Result account(String username)

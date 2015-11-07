@@ -1,8 +1,8 @@
 package models;
 
 import java.util.*;
+import java.time.LocalDate;
 import javax.persistence.*;
-
 import com.avaje.ebean.Model;
 import play.data.format.*;
 import play.data.validation.*;
@@ -27,14 +27,23 @@ public class URL extends Model {
   @Constraints.Required
   public char type;
   @Temporal(TemporalType.TIMESTAMP)
-  public Date creation;
+  public LocalDate creation;
   /*Used by temporary links*/
   @Temporal(TemporalType.TIMESTAMP)
-  public Date expiration;
+  public LocalDate expiration;
   /*Used by private links*/
   public String password;
 
   public static Finder<String, URL> find = new Finder<String, URL>(String.class, URL.class);
+
+  public static boolean already_generated(String username, String generated)
+  {
+    List<URL> list = find.where().like("owner", username).findList();
+
+    for (int i = 0; i < list.size(); i++)
+			if(generated.equals(list.get(i).get_generated())) return true;
+    return false;
+  }
 
   public Long get_id() {
     return id;
@@ -66,5 +75,21 @@ public class URL extends Model {
 
   public void set_original(String original) {
     this.original = original;
+  }
+
+  public char get_type() {
+    return type;
+  }
+
+  public void set_type(char type) {
+    this.type = type;
+  }
+
+  public LocalDate get_creation() {
+    return creation;
+  }
+
+  public void set_creation(LocalDate creation) {
+    this.creation = creation;
   }
 }

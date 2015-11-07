@@ -1,0 +1,6 @@
+@(username: String)
+
+@helper.form(action = routes.Users.shorten(username)){
+  <input type='text' name='originalLink' />
+  <input type='submit' name='submitLink' value='Shorten it!' />
+}

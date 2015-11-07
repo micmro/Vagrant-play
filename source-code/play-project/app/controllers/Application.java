@@ -23,7 +23,7 @@ public class Application extends Controller {
     public Result dig() {
       String shortened = null, original = Form.form().bindFromRequest().get("originalLink");
       if(original != null && !original.isEmpty()) {
-        shortened = tnl.dig(original);
+        shortened = tnl.dig(original, "");
         return redirect(controllers.routes.Application.tunnel(shortened));
       }
       return ok(dig.render());
