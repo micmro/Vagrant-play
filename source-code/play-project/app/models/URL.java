@@ -23,6 +23,16 @@ public class URL extends Model {
   public String generated;
   @Constraints.Required
   public String original;
+  /*(S)hort, (T)emporary, (P)rivate and (C)ustomized*/
+  @Constraints.Required
+  public char type;
+  @Temporal(TemporalType.TIMESTAMP)
+  public Date creation;
+  /*Used by temporary links*/
+  @Temporal(TemporalType.TIMESTAMP)
+  public Date expiration;
+  /*Used by private links*/
+  public String password;
 
   public static Finder<String, URL> find = new Finder<String, URL>(String.class, URL.class);
 

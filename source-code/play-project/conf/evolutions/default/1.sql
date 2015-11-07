@@ -8,6 +8,10 @@ create table URLs (
   owner                     varchar(255),
   generated                 varchar(255),
   original                  varchar(255),
+  type                      varchar(255),
+  creation                  timestamp,
+  expiration                timestamp,
+  password                  varchar(255),
   constraint pk_URLs primary key (id))
 ;
 
