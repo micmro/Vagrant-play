@@ -126,6 +126,14 @@ public class URL extends Model {
     this.creation = creation;
   }
 
+  public LocalDate get_expiration() {
+    return expiration;
+  }
+
+  public void set_expiration(LocalDate expiration) {
+    this.expiration = expiration;
+  }
+
   public String get_password() {
     return password;
   }
