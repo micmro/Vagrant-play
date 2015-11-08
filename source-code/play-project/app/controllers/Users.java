@@ -23,9 +23,11 @@ public class Users extends Controller {
   {
     String username = Form.form().bindFromRequest().get("username");
     String password = Form.form().bindFromRequest().get("password");
+
     if(username != null && !username.isEmpty() && password != null && !password.isEmpty()) {
       if(User.authenticate(username, password)) {
         if(!online.contains(username)) online.add(username);
+        session().remove("Username"); //Para que o session username seja atualizado caso novo usuario de sign in
         session("Username",username);
         return redirect(controllers.routes.Users.account(username));
       }
