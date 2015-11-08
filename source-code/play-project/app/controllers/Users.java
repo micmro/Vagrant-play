@@ -162,10 +162,12 @@ public class Users extends Controller {
 
   public Result redir(String username, String shovels)
   {
-    if(URL.already_generated(username, shovels)) {
-      if(URL.is_of_type(username, shovels) == 'p')
+    String real_link = URL.real_link(username, shovels);
+    char c = URL.is_of_type(username, shovels);
+    if(URL.already_generated(username, shovels) && real_link != null && c != 'u') {
+      if(c == 'p')
         return ok(views.html.user.ward.render());
-      return redirect("http://" + URL.real_link(username, shovels));
+      return redirect("http://" + real_link);
     }
     else
       return forbidden("Sorry! Ours dwarves lost themselves in the tunnels and couldn't find out the exit to you!");
@@ -188,9 +190,10 @@ public class Users extends Controller {
 
   public Result access_granted(String username, String shovels)
   {
-    if(request().getHeader("referer") == null || username.isEmpty() || shovels.isEmpty())
+    String real_link = URL.real_link(username, shovels);
+    if(request().getHeader("referer") == null || username.isEmpty() || shovels.isEmpty() || real_link == null)
       return forbidden("You are not allowed to access this route directly from the browser");
-    return redirect("http://" + URL.real_link(username, shovels));
+    return redirect("http://" + real_link);
   }
 
 }

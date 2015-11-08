@@ -52,7 +52,8 @@ public class URL extends Model {
 
     for (i = 0; i < list.size(); i++)
 			if(generated.equals(list.get(i).get_generated())) break;
-    return list.get(i).get_original();
+    if(i < list.size()) return list.get(i).get_original();
+    return null;
   }
 
   public static char is_of_type(String username, String generated)
@@ -62,7 +63,8 @@ public class URL extends Model {
 
     for (i = 0; i < list.size(); i++)
 			if(generated.equals(list.get(i).get_generated())) break;
-    return list.get(i).get_type();
+    if(i < list.size()) return list.get(i).get_type();
+    return 'u'; /*= undefined. Failed to retrieve an expected value*/
   }
 
   public static String access_granted(String username, String generated)
