@@ -55,7 +55,7 @@ public class Users extends Controller {
   /*NOTE: This method is supposed to handle the 4 types of links!*/
   public Result result(String username, String original, String generated) {
       if(request().getHeader("referer") == null || !request().getHeader("referer").contains("/shorten"))
-        return forbidden();
+        return forbidden("You are not allowed to access this route directly from the browser");
       else {
         URL url = new URL();
         url.set_owner(username);
@@ -73,6 +73,8 @@ public class Users extends Controller {
   {
     Form<User> userForm = Form.form(User.class).bindFromRequest();
 
+    if(request().getHeader("referer") == null)
+      return forbidden();
     if(userForm.hasErrors())
       return badRequest(views.html.user.signup.render(userForm));
     else {
