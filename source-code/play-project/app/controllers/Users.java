@@ -7,7 +7,7 @@ import views.html.*;
 import models.*;
 import java.util.List;
 import java.util.ArrayList;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Users extends Controller {
 
@@ -54,7 +54,7 @@ public class Users extends Controller {
       url.set_owner(username);
       url.set_generated(shortened);
       url.set_original(original);
-      url.set_creation(LocalDate.now());
+      url.set_creation(LocalDateTime.now());
       url.set_type('s');
       url.save();
 
@@ -80,7 +80,7 @@ public class Users extends Controller {
       url.set_owner(username);
       url.set_generated(customized);
       url.set_original(original);
-      url.set_creation(LocalDate.now());
+      url.set_creation(LocalDateTime.now());
       url.set_type('c');
       url.save();
 
@@ -107,7 +107,7 @@ public class Users extends Controller {
       url.set_owner(username);
       url.set_generated(secured);
       url.set_original(original);
-      url.set_creation(LocalDate.now());
+      url.set_creation(LocalDateTime.now());
       url.set_type('p');
       url.set_password(password);
       url.save();
@@ -116,6 +116,47 @@ public class Users extends Controller {
     }
 
     return ok(views.html.user.secure.render(username));
+  }
+
+
+  public Result temporary(String username)
+  {
+    String timed = Form.form().bindFromRequest().get("timedLink");
+    String expiration = Form.form().bindFromRequest().get("lifetime");
+    String original = Form.form().bindFromRequest().get("originalLink");
+
+    if(request().getHeader("referer") == null || !request().getHeader("referer").contains("/" + username))
+      return forbidden("You are not allowed to access this route directly from the browser");
+
+    /*TODO: check if timed is already in use here*/
+
+    if(original != null && !original.isEmpty() && timed != null && !timed.isEmpty() && expiration != null && !expiration.isEmpty()) {
+      LocalDateTime d;
+
+      URL url = new URL();
+      url.set_owner(username);
+      url.set_generated(timed);
+      url.set_original(original);
+      url.set_creation(LocalDateTime.now());
+      url.set_type('t');
+      if(expiration.charAt(0) == 'm') {
+        d = url.get_creation();
+        url.set_expiration(d.plusMinutes(Long.parseLong(expiration.substring(1))))
+      }
+      else if(expiration.charAt(0) == 'h') {
+        d = url.get_creation();
+        url.set_expiration(d.plusHours(Long.parseLong(expiration.substring(1))))
+      }
+      else if(expiration.charAt(0) == 'd') {
+        d = url.get_creation();
+        url.set_expiration(d.plusDays(Long.parseLong(expiration.substring(1))))
+      }
+      url.save();
+
+      return redirect(controllers.routes.Users.result(username, original, timed));
+    }
+
+    return ok(views.html.user.temporary.render(username));
   }
 
 

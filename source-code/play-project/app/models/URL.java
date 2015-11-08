@@ -1,7 +1,7 @@
 package models;
 
 import java.util.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import javax.persistence.*;
 import com.avaje.ebean.Model;
 import play.data.format.*;
@@ -27,10 +27,10 @@ public class URL extends Model {
   @Constraints.Required
   public char type;
   @Temporal(TemporalType.TIMESTAMP)
-  public LocalDate creation;
+  public LocalDateTime creation;
   /*Used by temporary links*/
   @Temporal(TemporalType.TIMESTAMP)
-  public LocalDate expiration;
+  public LocalDateTime expiration;
   /*Used by private links*/
   public String password;
 
@@ -118,19 +118,19 @@ public class URL extends Model {
     this.type = type;
   }
 
-  public LocalDate get_creation() {
+  public LocalDateTime get_creation() {
     return creation;
   }
 
-  public void set_creation(LocalDate creation) {
+  public void set_creation(LocalDateTime creation) {
     this.creation = creation;
   }
 
-  public LocalDate get_expiration() {
+  public LocalDateTime get_expiration() {
     return expiration;
   }
 
-  public void set_expiration(LocalDate expiration) {
+  public void set_expiration(LocalDateTime expiration) {
     this.expiration = expiration;
   }
 
