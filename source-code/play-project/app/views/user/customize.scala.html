@@ -1,0 +1,9 @@
+@(username: String)
+
+@helper.form(action = routes.Users.customize(username)){
+  Original Link:
+  <input type='text' name='originalLink' />
+  Fancy Link:
+  <input type='text' name='customizedLink' />
+  <input type='submit' name='submitLink' value='Fancy it!' />
+}

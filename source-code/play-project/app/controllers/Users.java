@@ -52,10 +52,24 @@ public class Users extends Controller {
     return ok(views.html.user.shorten.render(username));
   }
 
+  public Result customize(String username)
+  {
+    String customized = Form.form().bindFromRequest().get("customizedLink");
+    String original = Form.form().bindFromRequest().get("originalLink");
+
+    if(request().getHeader("referer") == null || !request().getHeader("referer").contains("/" + username))
+      return forbidden("You are not allowed to access this route directly from the browser");
+
+    if(original != null && !original.isEmpty() && customized != null && !customized.isEmpty())
+      return redirect(controllers.routes.Users.result(username, original, customized));
+
+    return ok(views.html.user.customize.render(username));
+  }
+
 
   /*NOTE: This method is supposed to handle the 4 types of links!*/
   public Result result(String username, String original, String generated) {
-      if(request().getHeader("referer") == null || !request().getHeader("referer").contains("/shorten"))
+      if(request().getHeader("referer") == null || (!request().getHeader("referer").contains("/shorten") && !request().getHeader("referer").contains("/customize")))
         return forbidden("You are not allowed to access this route directly from the browser");
       else {
         URL url = new URL();
@@ -64,6 +78,7 @@ public class Users extends Controller {
         url.set_original(original);
         url.set_creation(LocalDate.now());
         if(request().getHeader("referer").contains("/shorten")) url.set_type('s');
+        if(request().getHeader("referer").contains("/customize")) url.set_type('c');
         url.save();
         return ok(views.html.user.result.render(generated, username));
       }

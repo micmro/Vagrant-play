@@ -8,7 +8,7 @@ Hello, @username! This is your control panel. From here, you can create differen
 @helper.form(action = routes.Application.dig()){
   <input type='submit' name='temporary' value='Create Temporary Link!' />
 }
-@helper.form(action = routes.Application.dig()){
+@helper.form(action = routes.Users.customize(username)){
   <input type='submit' name='custom' value='Create Customized Link!' />
 }
 @helper.form(action = routes.Application.dig()){
