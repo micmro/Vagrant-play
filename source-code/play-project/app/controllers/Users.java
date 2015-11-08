@@ -46,6 +46,15 @@ public class Users extends Controller {
     if(original != null && !original.isEmpty()) {
       Tunnel tnl = new Tunnel();
       shortened = tnl.dig(original, username);
+
+      URL url = new URL();
+      url.set_owner(username);
+      url.set_generated(shortened);
+      url.set_original(original);
+      url.set_creation(LocalDate.now());
+      url.set_type('s');
+      url.save();
+
       return redirect(controllers.routes.Users.result(username, original, shortened));
     }
 
@@ -60,28 +69,61 @@ public class Users extends Controller {
     if(request().getHeader("referer") == null || !request().getHeader("referer").contains("/" + username))
       return forbidden("You are not allowed to access this route directly from the browser");
 
-    if(original != null && !original.isEmpty() && customized != null && !customized.isEmpty())
+    /*TODO: check if customized is already in use here*/
+
+    if(original != null && !original.isEmpty() && customized != null && !customized.isEmpty()) {
+
+      URL url = new URL();
+      url.set_owner(username);
+      url.set_generated(customized);
+      url.set_original(original);
+      url.set_creation(LocalDate.now());
+      url.set_type('c');
+      url.save();
+
       return redirect(controllers.routes.Users.result(username, original, customized));
+    }
 
     return ok(views.html.user.customize.render(username));
+  }
+
+  public Result secure(String username)
+  {
+    String secured = Form.form().bindFromRequest().get("securedLink");
+    String password = Form.form().bindFromRequest().get("goldenShovel");
+    String original = Form.form().bindFromRequest().get("originalLink");
+
+    if(request().getHeader("referer") == null || !request().getHeader("referer").contains("/" + username))
+      return forbidden("You are not allowed to access this route directly from the browser");
+
+    /*TODO: check if secured is already in use here*/
+
+    if(original != null && !original.isEmpty() && secured != null && !secured.isEmpty() && password != null && !password.isEmpty()) {
+
+      URL url = new URL();
+      url.set_owner(username);
+      url.set_generated(secured);
+      url.set_original(original);
+      url.set_creation(LocalDate.now());
+      url.set_type('p');
+      url.set_password(password);
+      url.save();
+
+      return redirect(controllers.routes.Users.result(username, original, secured));
+    }
+
+    return ok(views.html.user.secure.render(username));
   }
 
 
   /*NOTE: This method is supposed to handle the 4 types of links!*/
   public Result result(String username, String original, String generated) {
-      if(request().getHeader("referer") == null || (!request().getHeader("referer").contains("/shorten") && !request().getHeader("referer").contains("/customize")))
-        return forbidden("You are not allowed to access this route directly from the browser");
-      else {
-        URL url = new URL();
-        url.set_owner(username);
-        url.set_generated(generated);
-        url.set_original(original);
-        url.set_creation(LocalDate.now());
-        if(request().getHeader("referer").contains("/shorten")) url.set_type('s');
-        if(request().getHeader("referer").contains("/customize")) url.set_type('c');
-        url.save();
+      if(request().getHeader("referer") == null ||
+        (!request().getHeader("referer").contains("/shorten") && !request().getHeader("referer").contains("/customize") &&
+         !request().getHeader("referer").contains("/secure") && !request().getHeader("referer").contains("/temporary")))
+            return forbidden("You are not allowed to access this route directly from the browser");
+      else
         return ok(views.html.user.result.render(generated, username));
-      }
   }
 
 
@@ -118,10 +160,35 @@ public class Users extends Controller {
 
   public Result redir(String username, String shovels)
   {
-    if(URL.already_generated(username, shovels))
+    if(URL.already_generated(username, shovels)) {
+      if(URL.is_of_type(username, shovels) == 'p')
+        return ok(views.html.user.ward.render());
       return redirect("http://" + URL.real_link(username, shovels));
+    }
     else
-      return forbidden("There are still so much land to be digged...");
+      return forbidden("Sorry! Ours dwarves lost themselves in the tunnels and couldn't find out the exit to you!");
+  }
+
+  public Result ward()
+  {
+    String golden_shovel = Form.form().bindFromRequest().get("goldenShovel");
+    String username = Form.form().bindFromRequest().get("username");
+    String shovels = Form.form().bindFromRequest().get("shovels");
+
+    if(!golden_shovel.isEmpty() && !username.isEmpty()) {
+      String pass = URL.access_granted(username, shovels);
+      if(pass != null && golden_shovel.equals(pass))
+        return redirect(controllers.routes.Users.access_granted(username, shovels));
+    }
+    /*TODO: Raise "You have failed to break the ward"*/
+    return redirect(controllers.routes.Application.test());
+  }
+
+  public Result access_granted(String username, String shovels)
+  {
+    if(request().getHeader("referer") == null || username.isEmpty() || shovels.isEmpty())
+      return forbidden("You are not allowed to access this route directly from the browser");
+    return redirect("http://" + URL.real_link(username, shovels));
   }
 
 }

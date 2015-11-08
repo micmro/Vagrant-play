@@ -55,6 +55,27 @@ public class URL extends Model {
     return list.get(i).get_original();
   }
 
+  public static char is_of_type(String username, String generated)
+  {
+    int i;
+    List<URL> list = find.where().like("owner", username).findList();
+
+    for (i = 0; i < list.size(); i++)
+			if(generated.equals(list.get(i).get_generated())) break;
+    return list.get(i).get_type();
+  }
+
+  public static String access_granted(String username, String generated)
+  {
+    int i;
+    List<URL> list = find.where().like("owner", username).findList();
+
+    for (i = 0; i < list.size(); i++)
+			if(generated.equals(list.get(i).get_generated())) break;
+    if(i < list.size()) return list.get(i).get_password();
+    return null;
+  }
+
   public Long get_id() {
     return id;
   }
@@ -101,5 +122,13 @@ public class URL extends Model {
 
   public void set_creation(LocalDate creation) {
     this.creation = creation;
+  }
+
+  public String get_password() {
+    return password;
+  }
+
+  public void set_password(String password) {
+    this.password = password;
   }
 }

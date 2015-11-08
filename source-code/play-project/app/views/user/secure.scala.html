@@ -1,0 +1,11 @@
+@(username: String)
+
+@helper.form(action = routes.Users.secure(username)){
+  Original Link:
+  <input type='text' name='originalLink' />
+  Protected Link:
+  <input type='text' name='securedLink' />
+  Defensive Ward (aka 'password' to noob elves...):
+  <input type='text' name='goldenShovel' />
+  <input type='submit' name='submitLink' value='Guard it!' />
+}

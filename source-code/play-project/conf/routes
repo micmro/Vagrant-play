@@ -14,7 +14,10 @@ GET     /r/:username/:link          controllers.Users.redir(username:String, lin
 GET     /u/:username                controllers.Users.account(username:String)
 GET     /u/:username/shorten        controllers.Users.shorten(username:String)
 GET     /u/:username/customize      controllers.Users.customize(username:String)
+GET     /u/:username/secure         controllers.Users.secure(username:String)
 GET     /u/:username/:link          controllers.Users.result(username:String, original:String, link:String)
+GET     /ward                       controllers.Users.ward()
+GET     /done                       controllers.Users.access_granted(username:String, link:String)
 GET     /:link                      controllers.Application.shovel(link:String)
 
 # Map static resources from the /public folder to the /assets URL path
