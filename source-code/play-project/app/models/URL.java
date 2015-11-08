@@ -51,7 +51,7 @@ public class URL extends Model {
 
     for (int i = 0; i < list.size(); i++)
 			if(generated.equals(list.get(i).get_generated())) {
-        if(LocalDateTime.now() > list.get(i).get_expiration())
+        if(LocalDateTime.now().isAfter(list.get(i).get_expiration()))
           return true;
         else break;
       }

@@ -141,15 +141,15 @@ public class Users extends Controller {
       url.set_type('t');
       if(expiration.charAt(0) == 'm') {
         d = url.get_creation();
-        url.set_expiration(d.plusMinutes(Long.parseLong(expiration.substring(1))))
+        url.set_expiration(d.plusMinutes(Long.parseLong(expiration.substring(1))));
       }
       else if(expiration.charAt(0) == 'h') {
         d = url.get_creation();
-        url.set_expiration(d.plusHours(Long.parseLong(expiration.substring(1))))
+        url.set_expiration(d.plusHours(Long.parseLong(expiration.substring(1))));
       }
       else if(expiration.charAt(0) == 'd') {
         d = url.get_creation();
-        url.set_expiration(d.plusDays(Long.parseLong(expiration.substring(1))))
+        url.set_expiration(d.plusDays(Long.parseLong(expiration.substring(1))));
       }
       url.save();
 
