@@ -125,7 +125,7 @@ public class Users extends Controller {
 
     List<URL> listing = URL.find.where().like("owner",username).findList();
 
-    return ok(views.html.user.list_all.render(listing));
+    return ok(views.html.user.list_all.render(listing,username));
   }
 
   public Result temporary(String username)
