@@ -10,9 +10,9 @@ GET     /dig/:link                  controllers.Application.tunnel(link:String)
 POST    /signup                     controllers.Users.signup()
 GET     /signup                     controllers.Users.create()
 GET     /signin                     controllers.Users.signin()
-GET     /:username                  controllers.Users.account(username:String)
-GET     /:username/shorten          controllers.Users.shorten(username:String)
-GET     /:username/:shorten         controllers.Users.result(username:String, original:String, shorten:String)
+GET     /u/:username                controllers.Users.account(username:String)
+GET     /u/:username/shorten        controllers.Users.shorten(username:String)
+GET     /u/:username/:shorten       controllers.Users.result(username:String, original:String, shorten:String)
 GET     /:link                      controllers.Application.shovel(link:String)
 
 # Map static resources from the /public folder to the /assets URL path
