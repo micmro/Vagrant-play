@@ -1,7 +1,7 @@
 package models;
 
 import java.util.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import javax.persistence.*;
 import com.avaje.ebean.Model;
 import play.data.format.*;
@@ -27,10 +27,10 @@ public class URL extends Model {
   @Constraints.Required
   public char type;
   @Temporal(TemporalType.TIMESTAMP)
-  public LocalDate creation;
+  public LocalDateTime creation;
   /*Used by temporary links*/
   @Temporal(TemporalType.TIMESTAMP)
-  public LocalDate expiration;
+  public LocalDateTime expiration;
   /*Used by private links*/
   public String password;
 
@@ -45,6 +45,19 @@ public class URL extends Model {
     return false;
   }
 
+  public static boolean is_expired(String username, String generated)
+  {
+    List<URL> list = find.where().like("owner", username).findList();
+
+    for (int i = 0; i < list.size(); i++)
+			if(generated.equals(list.get(i).get_generated())) {
+        if(LocalDateTime.now().isAfter(list.get(i).get_expiration()))
+          return true;
+        else break;
+      }
+    return false;
+  }
+
   public static String real_link(String username, String generated)
   {
     int i;
@@ -52,7 +65,30 @@ public class URL extends Model {
 
     for (i = 0; i < list.size(); i++)
 			if(generated.equals(list.get(i).get_generated())) break;
-    return list.get(i).get_original();
+    if(i < list.size()) return list.get(i).get_original();
+    return null;
+  }
+
+  public static char is_of_type(String username, String generated)
+  {
+    int i;
+    List<URL> list = find.where().like("owner", username).findList();
+
+    for (i = 0; i < list.size(); i++)
+			if(generated.equals(list.get(i).get_generated())) break;
+    if(i < list.size()) return list.get(i).get_type();
+    return 'u'; /*= undefined. Failed to retrieve an expected value*/
+  }
+
+  public static String access_granted(String username, String generated)
+  {
+    int i;
+    List<URL> list = find.where().like("owner", username).findList();
+
+    for (i = 0; i < list.size(); i++)
+			if(generated.equals(list.get(i).get_generated())) break;
+    if(i < list.size()) return list.get(i).get_password();
+    return null;
   }
 
   public Long get_id() {
@@ -95,11 +131,27 @@ public class URL extends Model {
     this.type = type;
   }
 
-  public LocalDate get_creation() {
+  public LocalDateTime get_creation() {
     return creation;
   }
 
-  public void set_creation(LocalDate creation) {
+  public void set_creation(LocalDateTime creation) {
     this.creation = creation;
+  }
+
+  public LocalDateTime get_expiration() {
+    return expiration;
+  }
+
+  public void set_expiration(LocalDateTime expiration) {
+    this.expiration = expiration;
+  }
+
+  public String get_password() {
+    return password;
+  }
+
+  public void set_password(String password) {
+    this.password = password;
   }
 }

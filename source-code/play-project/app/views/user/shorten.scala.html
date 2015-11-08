@@ -1,6 +1,7 @@
 @(username: String)
 <!-- TODO : Acept link type as an argument and send to a generic controller that create all types of links -->
 @helper.form(action = routes.Users.shorten(username)){
+  Original Link:
   <input type='text' name='originalLink' />
-  <input type='submit' name='submitLink' value='Shorten it!' />
+  <input type='submit' name='submitLink' value='Shrink it!' />
 }

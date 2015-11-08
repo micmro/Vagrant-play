@@ -9,8 +9,8 @@ create table URLs (
   generated                 varchar(255),
   original                  varchar(255),
   type                      varchar(255),
-  creation                  date,
-  expiration                date,
+  creation                  timestamp,
+  expiration                timestamp,
   password                  varchar(255),
   constraint pk_URLs primary key (id))
 ;
