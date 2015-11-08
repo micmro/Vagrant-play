@@ -1,0 +1,7 @@
+@(listing: List[URL])
+you expected a list of your links but you found me, Dio!
+
+@for(link <- listing) {
+  <p>@link.get_original     @link.get_generated()</p>
+}
+

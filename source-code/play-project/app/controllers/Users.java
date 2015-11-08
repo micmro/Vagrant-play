@@ -118,6 +118,15 @@ public class Users extends Controller {
     return ok(views.html.user.secure.render(username));
   }
 
+  public Result list_all(String username)
+  {
+    if(request().getHeader("referer") == null || !request().getHeader("referer").contains("/" + username))
+      return forbidden("You are not allowed to access this route directly from the browser");
+
+    List<URL> listing = URL.find.where().like("owner",username).findList();
+
+    return ok(views.html.user.list_all.render(listing));
+  }
 
   public Result temporary(String username)
   {
@@ -191,6 +200,13 @@ public class Users extends Controller {
         return redirect(controllers.routes.Users.create());
       }
     }
+  }
+
+  public Result signout(String username)
+  {
+    online.remove(username);          //Remove da lista de users online
+    session().remove("Username");     //Remove o cookie
+    return redirect(controllers.routes.Application.test());
   }
 
   public Result account(String username)
