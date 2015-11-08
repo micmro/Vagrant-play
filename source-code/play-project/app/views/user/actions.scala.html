@@ -82,30 +82,50 @@
                 <div class="row">
                     <div class="col-md-8 col-md-offset-1">
                       <h2> Control Panel</h2>
-                      <p>Hello, @session.get("Username")! This is your control panel. From here, you can create different types of links.</p>
+                      <p>
+                        Hello, @session.get("Username")! This is your control panel. From here, you can create different types of links.
+                      </p>
 
-@helper.form(action = routes.Users.shorten(username)){
-<p><input type='submit' name='short' value='Create Short Link!'
-style = "color:#000000"/></p>
-}
-@helper.form(action = routes.Users.temporary(username)){
-<p><input type='submit' name='temporary' value='Create Temporary Link!'
-style = "color:#000000"/></p>
-}
-@helper.form(action = routes.Users.customize(username)){
-<p><input type='submit' name='custom' value='Create Customized Link!'
-style = "color:#000000"/></p>
-}
-@helper.form(action = routes.Users.secure(username)){
-<p><input type='submit' name='secure' value='Create Secure Link!'
-style = "color:#000000"/></p>
-}
+                        @helper.form(action = routes.Users.shorten(username)){
+                        <p><input type='submit' name='short' value='Create Short Link!'
+                        style = "color:#000000"/></p>
+                        }
+                        @helper.form(action = routes.Users.temporary(username)){
+                        <p><input type='submit' name='temporary' value='Create Temporary Link!'
+                        style = "color:#000000"/></p>
+                        }
+                        @helper.form(action = routes.Users.customize(username)){
+                        <p><input type='submit' name='custom' value='Create Customized Link!'
+                        style = "color:#000000"/></p>
+                        }
+                        @helper.form(action = routes.Users.secure(username)){
+                        <p><input type='submit' name='secure' value='Create Secure Link!'
+                        style = "color:#000000"/></p>
+                        }
 
-@helper.form(action = routes.Users.list_all(username)){
-<p>You can also click on the following button to see all your links.</p>
-<p><input type='submit' name='private' value='List My Links'
-style = "color:#000000"/></p>
-}
+                        @helper.form(action = routes.Users.list_all(username)){
+                        <p>You can also click on the following button to see all your links.</p>
+                        <p><input type='submit' name='private' value='List My Links'
+                        style = "color:#000000"/></p>
+                        }
+
+                        <!-- TODO : Dont create a form to each action, use <a> tag  -->
+
+                        <!-- <button type='submit' value='Short'> -->
+                        <!--   <a href="routes.Users.shorten(username)"> -->
+                        <!-- </button> -->
+                        <!-- <button type='submit' value='Temporaly'> -->
+                        <!--   <a href="routes.Application.dig("temporary")"> -->
+                        <!-- </button> -->
+                        <!-- <button type='submit' value='Custom'> -->
+                        <!--   <a href="routes.Application.dig("custom")"> -->
+                        <!-- </button> -->
+                        <!-- <button type='submit' value='Private'> -->
+                        <!--   <a href="routes.Application.dig("private")"> -->
+                        <!-- </button> -->
+                        <!-- <button type='submit' value='List My Links'> -->
+                        <!--   <a href="routes.Application.dig("list")"> -->
+                        <!-- </button> -->
                     </div>
                 </div>
             </div>
