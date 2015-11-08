@@ -28,7 +28,8 @@ public class Users extends Controller {
       if(User.authenticate(username, password)) {
         if(!online.contains(username)) online.add(username);
         session().remove("Username"); //Para que o session username seja atualizado caso novo usuario de sign in
-        session("Username",username);
+        String username_when_logged = "Hello, " + username + "!";
+        session("Username",username_when_logged);
         return redirect(controllers.routes.Users.account(username));
       }
       else
