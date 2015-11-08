@@ -8,6 +8,7 @@ import models.*;
 import java.util.List;
 import java.util.ArrayList;
 import java.time.LocalDate;
+import java.lang.Object.*;
 
 public class Users extends Controller {
 
@@ -118,6 +119,15 @@ public class Users extends Controller {
     return ok(views.html.user.secure.render(username));
   }
 
+  public Result list_all(String username)
+  {
+    if(request().getHeader("referer") == null || !request().getHeader("referer").contains("/" + username))
+      return forbidden("You are not allowed to access this route directly from the browser");
+
+    List<URL> listing = URL.find.where().like("owner",username).findList();
+
+    return ok(views.html.user.list_all.render(listing));
+  }
 
   /*NOTE: This method is supposed to handle the 4 types of links!*/
   public Result result(String username, String original, String generated) {

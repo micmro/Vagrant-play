@@ -14,6 +14,7 @@ GET     /r/:username/:link          controllers.Users.redir(username:String, lin
 GET     /u/:username/shorten        controllers.Users.shorten(username:String)
 GET     /u/:username/customize      controllers.Users.customize(username:String)
 GET     /u/:username/secure         controllers.Users.secure(username:String)
+GET     /u/:username/list_all       controllers.Users.list_all(username:String)
 GET     /u/:username/:link          controllers.Users.result(username:String, original:String, link:String)
 GET     /u/:username                controllers.Users.account(username:String)
 GET     /ward                       controllers.Users.ward()
