@@ -45,6 +45,16 @@ public class URL extends Model {
     return false;
   }
 
+  public static String real_link(String username, String generated)
+  {
+    int i;
+    List<URL> list = find.where().like("owner", username).findList();
+
+    for (i = 0; i < list.size(); i++)
+			if(generated.equals(list.get(i).get_generated())) break;
+    return list.get(i).get_original();
+  }
+
   public Long get_id() {
     return id;
   }

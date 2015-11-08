@@ -98,4 +98,12 @@ public class Users extends Controller {
     else return ok(views.html.user.actions.render(username));
   }
 
+  public Result redir(String username, String shovels)
+  {
+    if(URL.already_generated(username, shovels))
+      return redirect("http://" + URL.real_link(username, shovels));
+    else
+      return forbidden("There are still so much land to be digged...");
+  }
+
 }
