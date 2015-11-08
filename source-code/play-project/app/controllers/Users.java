@@ -56,7 +56,7 @@ public class Users extends Controller {
   /*NOTE: This method is supposed to handle the 4 types of links!*/
   public Result result(String username, String original, String generated) {
       if(request().getHeader("referer") == null || !request().getHeader("referer").contains("/shorten"))
-        return forbidden();
+        return forbidden("You are not allowed to access this route directly from the browser");
       else {
         URL url = new URL();
         url.set_owner(username);
@@ -74,6 +74,8 @@ public class Users extends Controller {
   {
     Form<User> userForm = Form.form(User.class).bindFromRequest();
 
+    if(request().getHeader("referer") == null)
+      return forbidden();
     if(userForm.hasErrors())
       return badRequest(views.html.user.signup.render(userForm));
     else {
@@ -97,6 +99,14 @@ public class Users extends Controller {
       /*TODO: Raise "You are not allowed to access this route directly from browser"*/
       return forbidden("You are not allowed to access this route directly from the browser");
     else return ok(views.html.user.actions.render(username));
+  }
+
+  public Result redir(String username, String shovels)
+  {
+    if(URL.already_generated(username, shovels))
+      return redirect("http://" + URL.real_link(username, shovels));
+    else
+      return forbidden("There are still so much land to be digged...");
   }
 
 }
