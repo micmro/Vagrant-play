@@ -209,6 +209,8 @@ public class Users extends Controller {
     if(URL.already_generated(username, shovels) && real_link != null && c != 'u') {
       if(c == 'p')
         return ok(views.html.user.ward.render());
+      if(c == 't' && URL.is_expired(username, shovels))
+        return forbidden("Sorry! Ours dwarves lost themselves in the tunnels and couldn't find out the exit to you!");
       return redirect("http://" + real_link);
     }
     else

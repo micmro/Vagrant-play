@@ -45,6 +45,19 @@ public class URL extends Model {
     return false;
   }
 
+  public static boolean is_expired(String username, String generated)
+  {
+    List<URL> list = find.where().like("owner", username).findList();
+
+    for (int i = 0; i < list.size(); i++)
+			if(generated.equals(list.get(i).get_generated())) {
+        if(LocalDateTime.now() > list.get(i).get_expiration())
+          return true;
+        else break;
+      }
+    return false;
+  }
+
   public static String real_link(String username, String generated)
   {
     int i;
