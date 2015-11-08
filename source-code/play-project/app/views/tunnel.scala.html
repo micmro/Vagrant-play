@@ -1,0 +1,16 @@
+@(shovel: String)
+
+<!DOCTYPE html>
+
+<html lang="en">
+    <body>
+      <p>Here is your shortened link!</p>
+        dwarfurl.com/@shovel
+    </body>
+    @helper.form(action = routes.Application.test()){
+      <input type='submit' name='short' value='Return to Landing Page' />
+    }
+    @helper.form(action = routes.Application.shovel(shovel)){
+      <input type='submit' value='Redirect Me!' />
+    }
+</html>

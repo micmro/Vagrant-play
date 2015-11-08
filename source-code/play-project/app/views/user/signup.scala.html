@@ -1,0 +1,24 @@
+@(userForm: Form[models.User])
+
+@main("DwarfLINK - Sign In") {
+  
+  <div class="intro">
+      <div class="intro-body">
+          <div class="container">
+              <div class="row">
+                  <div class="col-md-8 col-md-offset-1">
+                    <h2> Sign Up</h2>
+                        @helper.form(action = routes.Users.signup()) {
+                        <p style="color:#FFFFFF; text-shadow: 1px 1px #000000">Username: <input type='text' name='username' 
+                                  style ="color:#000000"/> </p>
+                        <p>Password: <input type='password' name='password'
+                                  style ="color:#000000"/> </p>
+                        <p><input type='submit' name='submitLink' value='Sign in!'
+                                  style ="color:#000000; border:solid 1px #555"/> </p>
+                        }
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+}

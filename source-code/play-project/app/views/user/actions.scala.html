@@ -1,0 +1,39 @@
+@(username: String)
+
+Hello, @username! This is your control panel. From here, you can create different types of links.
+
+@helper.form(action = routes.Users.shorten(username)){
+  <input type='submit' name='short' value='Create Short Link!' />
+}
+@helper.form(action = routes.Application.dig()){
+  <input type='submit' name='temporary' value='Create Temporary Link!' />
+}
+@helper.form(action = routes.Application.dig()){
+  <input type='submit' name='custom' value='Create Customized Link!' />
+}
+@helper.form(action = routes.Application.dig()){
+  <input type='submit' name='private' value='Create Private Link!' />
+}
+
+@helper.form(action = routes.Application.dig()){
+  You can also click on the following button to see all your links.
+  <input type='submit' name='private' value='List My Links' />
+}
+
+<!-- TODO : Dont create a form to each action, use <a> tag  -->
+
+<!-- <button type='submit' value='Short'> -->
+<!--   <a href="routes.Users.shorten(username)"> -->
+<!-- </button> -->
+<!-- <button type='submit' value='Temporaly'> -->
+<!--   <a href="routes.Application.dig("temporary")"> -->
+<!-- </button> -->
+<!-- <button type='submit' value='Custom'> -->
+<!--   <a href="routes.Application.dig("custom")"> -->
+<!-- </button> -->
+<!-- <button type='submit' value='Private'> -->
+<!--   <a href="routes.Application.dig("private")"> -->
+<!-- </button> -->
+<!-- <button type='submit' value='List My Links'> -->
+<!--   <a href="routes.Application.dig("list")"> -->
+<!-- </button> -->

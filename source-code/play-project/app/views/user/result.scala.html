@@ -1,0 +1,16 @@
+@(shovel: String)(username: String)
+
+<!DOCTYPE html>
+
+<html lang="en">
+    <body>
+      <p>Here is your shortened link!</p>
+        dwarfurl.com/@shovel
+      <button type='submit' value='Short!'>
+        <a href="@routes.Users.account(username)">
+      </button>
+      <button type='submit' value='Redirect Me!'>
+        <a href="@routes.Users.redir(username, shovel)">
+      </button>
+    </body>
+</html>
