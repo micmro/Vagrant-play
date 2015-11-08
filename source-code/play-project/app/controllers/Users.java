@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.time.LocalDate;
 
+import java.io.*;
+
 public class Users extends Controller {
 
   private List<String> online = new ArrayList<String>();
@@ -20,6 +22,17 @@ public class Users extends Controller {
   }
 
   public Result signin()
+  {
+    String username = session("Username");
+    if(username != null && online.contains(username))
+    {
+      return redirect(controllers.routes.Application.test());
+    } else {
+      return ok(views.html.user.signin.render());
+    }
+  }
+
+  public Result login()
   {
     String username = Form.form().bindFromRequest().get("username");
     String password = Form.form().bindFromRequest().get("password");
@@ -108,5 +121,19 @@ public class Users extends Controller {
     else
       return forbidden("There are still so much land to be digged...");
   }
+
+  public Result logout()
+  {
+    String username = session("Username");
+    if(username != null && online.contains(username)) {
+
+      online.remove(username);
+      session().clear();
+      return redirect(controllers.routes.Application.test());
+    } else {
+      flash("login_error","You must be logged in to do that!");
+      return redirect(controllers.routes.Users.signin());
+    }
+  } 
 
 }
