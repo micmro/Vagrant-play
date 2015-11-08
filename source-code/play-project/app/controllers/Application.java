@@ -17,7 +17,6 @@ public class Application extends Controller {
     }
 
     public Result test() {
-        session().remove("Username");
         return ok(test.render());
     }
 

@@ -162,6 +162,13 @@ public class Users extends Controller {
     }
   }
 
+  public Result signout(String username)
+  {
+    online.remove(username);          //Remove da lista de users online
+    session().remove("Username");     //Remove o cookie
+    return redirect(controllers.routes.Application.test());
+  }
+
   public Result account(String username)
   {
     Form<User> form = Form.form(User.class);
