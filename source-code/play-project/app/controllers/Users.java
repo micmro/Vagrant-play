@@ -26,6 +26,7 @@ public class Users extends Controller {
     if(username != null && !username.isEmpty() && password != null && !password.isEmpty()) {
       if(User.authenticate(username, password)) {
         if(!online.contains(username)) online.add(username);
+        session("Username",username);
         return redirect(controllers.routes.Users.account(username));
       }
       else
