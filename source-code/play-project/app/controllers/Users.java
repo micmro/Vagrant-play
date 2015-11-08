@@ -272,9 +272,10 @@ public class Users extends Controller {
   public Result logout()
   {
     String username = session("Username");
-    if(username != null && online.contains(username)) {
-
-      online.remove(username);
+    if(username != null) {
+      if(online.contains(username)) {
+        online.remove(username);
+      } 
       session().clear();
       return redirect(controllers.routes.Application.test());
     } else {
