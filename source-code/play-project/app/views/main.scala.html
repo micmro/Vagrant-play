@@ -42,9 +42,15 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                     <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand page-scroll" href="@routes.Application.dig()">
+                @if(session.get("Username") != null) {
+                  <a class="navbar-brand page-scroll" href="@routes.Users.account(session.get("Username"))">
+                    <i class="fa fa-play-circle"></i>  <span class="light">Control Painel</span>
+                  </a>
+                } else {
+                  <a class="navbar-brand page-scroll" href="@routes.Application.dig()">
                     <i class="fa fa-play-circle"></i>  <span class="light">Start</span> DwarfLINK
-                </a>
+                  </a>
+                }
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->

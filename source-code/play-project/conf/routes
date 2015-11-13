@@ -14,10 +14,7 @@ POST    /signin                     controllers.Users.login()
 GET     /logout                     controllers.Users.logout()
 
 GET     /r/:username/:link          controllers.Users.redir(username:String, link:String)
-GET     /u/:username/shorten        controllers.Users.shorten(username:String)
-GET     /u/:username/customize      controllers.Users.customize(username:String)
-GET     /u/:username/secure         controllers.Users.secure(username:String)
-GET     /u/:username/temporary      controllers.Users.temporary(username:String)
+
 GET     /u/:username/list_all       controllers.Users.list_all(username:String)
 GET     /u/:username/signout        controllers.Users.signout(username:String)
 GET     /u/:username/:link          controllers.Users.result(username:String, original:String, link:String)
@@ -25,6 +22,12 @@ GET     /u/:username                controllers.Users.account(username:String)
 GET     /ward                       controllers.Users.ward()
 GET     /done                       controllers.Users.access_granted(username:String, link:String)
 GET     /:link                      controllers.Application.shovel(link:String)
+
+GET     /api/:username/shortlink_base         controllers.Api.shortlinkBase(username:String,slType:String)
+POST    /api/:username/shorten      controllers.Api.shorten(username:String)
+POST    /api/:username/customize    controllers.Api.customize(username:String)
+POST    /api/:username/secure       controllers.Api.secure(username:String)
+POST    /api/:username/temporary    controllers.Api.temporary(username:String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

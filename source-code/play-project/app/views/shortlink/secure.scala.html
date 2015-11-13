@@ -1,6 +1,6 @@
 @(username: String)
 
-@helper.form(action = routes.Users.secure(username)){
+@helper.form(action = routes.Api.secure(username)){
   <p>Original Link:</p>
   <input type='text' name='originalLink' />
   <p>Spell Name:</p>
