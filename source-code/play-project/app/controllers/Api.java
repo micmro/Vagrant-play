@@ -113,42 +113,52 @@ public class Api extends Controller {
 
   public Result temporary(String username) {
 
-    String timed = Form.form().bindFromRequest().get("timedLink");
+    String timedSlug = Form.form().bindFromRequest().get("temporarySlug");
     String expiration = Form.form().bindFromRequest().get("lifetime");
     String original = Form.form().bindFromRequest().get("originalLink");
+    String userPath = controllers.routes.Users.account(username).toString();
 
-    if(request().getHeader("referer") == null || !request().getHeader("referer").contains("/" + username))
-      return forbidden("You are not allowed to access this route directly from the browser");
+    System.out.println("timed : " + timedSlug);
+    System.out.println("expiration : " + expiration);
+    System.out.println("original : " + original);
+    System.out.println("userPath : " + userPath);
+    System.out.println("path : " + request().host());
 
-    /*TODO: check if timed is already in use here*/
+    String generated_url = request().host() + userPath + '/' + timedSlug;
+    System.out.println("generated url : " + generated_url);
 
-    if(original != null && !original.isEmpty() && timed != null && !timed.isEmpty() && expiration != null && !expiration.isEmpty()) {
-      LocalDateTime d;
+  //   if(request().getHeader("referer") == null || !request().getHeader("referer").contains("/" + username))
+  //     return forbidden("You are not allowed to access this route directly from the browser");
 
-      URL url = new URL();
-      url.set_owner(username);
-      url.set_generated(timed);
-      url.set_original(original);
-      url.set_creation(LocalDateTime.now());
-      url.set_type('t');
-      if(expiration.charAt(0) == 'm') {
-        d = url.get_creation();
-        url.set_expiration(d.plusMinutes(Long.parseLong(expiration.substring(1))));
-      }
-      else if(expiration.charAt(0) == 'h') {
-        d = url.get_creation();
-        url.set_expiration(d.plusHours(Long.parseLong(expiration.substring(1))));
-      }
-      else if(expiration.charAt(0) == 'd') {
-        d = url.get_creation();
-        url.set_expiration(d.plusDays(Long.parseLong(expiration.substring(1))));
-      }
-      url.save();
+  //   /*TODO: check if timed is already in use here*/
 
-      return redirect(controllers.routes.Users.result(username, original, timed));
-    }
+  //   if(original != null && !original.isEmpty() && timedSlug != null && !timedSlug.isEmpty() && expiration != null && !expiration.isEmpty()) {
+  //     LocalDateTime d;
+  //     URL url = new URL();
+  //     url.set_owner(username);
+  //     url.set_generated(timed);
+  //     url.set_original(original);
+  //     url.set_creation(LocalDateTime.now());
+  //     url.set_type('t');
+  //     if(expiration.charAt(0) == 'm') {
+  //       d = url.get_creation();
+  //       url.set_expiration(d.plusMinutes(Long.parseLong(expiration.substring(1))));
+  //     }
+  //     else if(expiration.charAt(0) == 'h') {
+  //       d = url.get_creation();
+  //       url.set_expiration(d.plusHours(Long.parseLong(expiration.substring(1))));
+  //     }
+  //     else if(expiration.charAt(0) == 'd') {
+  //       d = url.get_creation();
+  //       url.set_expiration(d.plusDays(Long.parseLong(expiration.substring(1))));
+  //     }
+  //     url.save();
 
-    return ok(views.html.shortlink.temporary.render(username));
+  //     return redirect(controllers.routes.Users.result(username, original, timed));
+  //   }
+
+  //   return ok(views.html.shortlink.temporary.render(username));
+    return redirect(userPath);
   }
 
 }
