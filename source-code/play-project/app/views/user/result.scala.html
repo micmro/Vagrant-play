@@ -1,16 +1,16 @@
-@(link: String)(username: String)
+@(shovel: String)(username: String)
 
 <!DOCTYPE html>
 
 <html lang="en">
     <body>
       <p>Here is your shortened link!</p>
-        dwarfurl.com/@link
-      <button type='submit' value='Short!'>
-        <a href="@routes.Users.account(username)">
-      </button>
-      <button type='submit' value='Redirect Me!'>
-        <a href="@routes.Users.redir(username, link)">
-      </button>
+        dwarfurl.com/@shovel
     </body>
+    @helper.form(action = routes.Users.account(username)){
+      <input type='submit' name='short' value='Return to Control Panel' />
+    }
+    @helper.form(action = routes.Users.redir(username, shovel)){
+      <input type='submit' value='Redirect Me!' />
+    }
 </html>
