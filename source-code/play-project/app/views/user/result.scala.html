@@ -1,16 +1,19 @@
-@(link: String)(username: String)
+@(generatedUrl: String)(username: String)
 
-<!DOCTYPE html>
-
-<html lang="en">
-    <body>
-      <p>Here is your shortened link!</p>
-        dwarfurl.com/@link
-      <button type='submit' value='Short!'>
-        <a href="@routes.Users.account(username)">
-      </button>
-      <button type='submit' value='Redirect Me!'>
-        <a href="@routes.Users.redir(username, link)">
-      </button>
-    </body>
-</html>
+@main("DwarfLINK - Try it now!") {
+  <!-- Intro Header -->
+  <div class="intro">
+      <div class="intro-body">
+          <div class="container">
+              <div class="row">
+                  <div class="col-md-8 col-md-offset-1">
+                    <h2>Here is your shortened link! </h2>
+                      <p>
+                        <a href="@generatedUrl">@generatedUrl</a>
+                      </p>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+}

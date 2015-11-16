@@ -1,11 +1,31 @@
 @(username: String)
 
-@helper.form(action = routes.Api.secure(username)){
-  <p>Original Link:</p>
-  <input type='text' name='originalLink' />
-  <p>Spell Name:</p>
-  <input type='text' name='securedLink' />
-  <p>Defensive Ward (aka 'password' to noob elves...):</p>
-  <input type='text' name='goldenShovel' />
-  <p><input type='submit' name='submitLink' value='Guard it!' /></p>
+@main("DwarfLINK - Try it now!") {
+  <!-- Intro Header -->
+  <div class="intro">
+    <div class="intro-body">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 col-md-offset-1">
+            <h2> Secure Link </h2>
+            @helper.form(action = routes.Api.secure(username)){
+              <div class="form-group">
+                <label>Original Link : </label>
+                <input class="form-control" type='text' name='originalLink' style ="color:#000000" placeholder="ex: http://www.google.com"/> 
+              </div>
+              <div class="form-group">
+                <label>Secure Link Slug : </label>
+                <input class="form-control" type='text' name='secureSlug' style ="color:#000000" placeholder="ex: tempofoo"/> 
+              </div>
+              <div class="form-group">
+                <label>Secure Link Key : </label>
+                <input class="form-control" type='password' name='goldenShovel' style ="color:#000000"/> 
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 }

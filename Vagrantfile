@@ -5,11 +5,11 @@ Vagrant.configure(2) do |config|
   config.vm.box = "ubuntu/trusty64"
   config.vm.hostname = "vagrant-play"
   config.vm.provider "virtualbox" do |v|
-    v.name = "eng-soft-project"
+    v.name = "eng-soft-project2"
     # max 75% CPU cap
     v.customize ["modifyvm", :id, "--cpuexecutioncap", "75"]
     # give vm max 3GB ram
-    v.memory = 2048
+    v.memory = 4096
   end
 
   config.vm.provision :shell, :privileged => false, :path => "vagrant-machine-setup.sh"

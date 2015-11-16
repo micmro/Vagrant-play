@@ -36,14 +36,14 @@
                 </a>
             </div>
 
-            @helper.form(action = routes.Users.list_all(session.get("Username"))){
-              <p>
-                You can also click on the following button to see all your links.
-              </p>
-              <p>
-                <input type='submit' name='private' value='List My Links' style = "color:#000000"/>
-              </p>
-            }
+            <p>
+              You can also click on the following button to see all your links.
+            </p>
+            <a href="@routes.Users.list_all(session.get("Username"))">
+              <button class="btn btn-primary">
+               List My Links 
+              </button>
+            </a>
           </div>
         </div>
       </div>

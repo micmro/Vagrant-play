@@ -7,6 +7,8 @@ import com.avaje.ebean.Model;
 import play.data.format.*;
 import play.data.validation.*;
 
+import controllers.Users;
+
 @Entity
 @Table(name = "URLs")
 public class URL extends Model {
@@ -39,9 +41,10 @@ public class URL extends Model {
   public static boolean already_generated(String username, String generated)
   {
     List<URL> list = find.where().like("owner", username).findList();
-
     for (int i = 0; i < list.size(); i++)
-			if(generated.equals(list.get(i).get_generated())) return true;
+      if(generated.equals(list.get(i).get_generated())) {
+        return true;
+      } 
     return false;
   }
 
@@ -50,7 +53,7 @@ public class URL extends Model {
     List<URL> list = find.where().like("owner", username).findList();
 
     for (int i = 0; i < list.size(); i++)
-			if(generated.equals(list.get(i).get_generated())) {
+      if(generated.equals(list.get(i).get_generated())) {
         if(LocalDateTime.now().isAfter(list.get(i).get_expiration()))
           return true;
         else break;

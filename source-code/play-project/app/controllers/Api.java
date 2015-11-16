@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 import enums.ShortLink;
+import services.Tunnel;
 
 import java.io.*;
 
@@ -32,83 +33,87 @@ public class Api extends Controller {
     }
   }
 
-  public Result shorten(String username) {
 
-    String shortened = null, original = Form.form().bindFromRequest().get("originalLink");
-
-    if(request().getHeader("referer") == null || !request().getHeader("referer").contains("/" + username))
-      return forbidden("You are not allowed to access this route directly from the browser");
-
-    if(original != null && !original.isEmpty()) {
-      Tunnel tnl = new Tunnel();
-      shortened = tnl.dig(original, username);
-
-      URL url = new URL();
-      url.set_owner(username);
-      url.set_generated(shortened);
-      url.set_original(original);
-      url.set_creation(LocalDateTime.now());
-      url.set_type('s');
-      url.save();
-
-      return redirect(controllers.routes.Users.result(username, original, shortened));
-    }
-
-    return ok(views.html.shortlink.shorten.render(username));
-  }
-
-  public Result customize(String username) {
-
-    String customized = Form.form().bindFromRequest().get("customizedLink");
-    String original = Form.form().bindFromRequest().get("originalLink");
-
-    if(request().getHeader("referer") == null || !request().getHeader("referer").contains("/" + username))
-      return forbidden("You are not allowed to access this route directly from the browser");
-
-    /*TODO: check if customized is already in use here*/
-
-    if(original != null && !original.isEmpty() && customized != null && !customized.isEmpty()) {
-
-      URL url = new URL();
-      url.set_owner(username);
-      url.set_generated(customized);
-      url.set_original(original);
-      url.set_creation(LocalDateTime.now());
-      url.set_type('c');
-      url.save();
-
-      return redirect(controllers.routes.Users.result(username, original, customized));
-    }
-
-    return ok(views.html.shortlink.customize.render(username));
-  }
 
   public Result secure(String username) {
 
-    String secured = Form.form().bindFromRequest().get("securedLink");
+    String secureSlug = Form.form().bindFromRequest().get("secureSlug");
     String password = Form.form().bindFromRequest().get("goldenShovel");
     String original = Form.form().bindFromRequest().get("originalLink");
 
+    System.out.println("secureSlug" + secureSlug);
+    System.out.println("password" + password);
+    System.out.println("original" + original);
     if(request().getHeader("referer") == null || !request().getHeader("referer").contains("/" + username))
-      return forbidden("You are not allowed to access this route directly from the browser");
-
+      return redirect(controllers.routes.Application.forbidden_act("You are not allowed to access this route directly from the browser"));
     /*TODO: check if secured is already in use here*/
 
-    if(original != null && !original.isEmpty() && secured != null && !secured.isEmpty() && password != null && !password.isEmpty()) {
+    if(original != null && !original.isEmpty() && secureSlug != null && !secureSlug.isEmpty() && password != null && !password.isEmpty()) {
 
       URL url = new URL();
       url.set_owner(username);
-      url.set_generated(secured);
+      url.set_generated(secureSlug);
       url.set_original(original);
       url.set_creation(LocalDateTime.now());
       url.set_type('p');
       url.set_password(password);
       url.save();
 
-      return redirect(controllers.routes.Users.result(username, original, secured));
+      return redirect(controllers.routes.Users.result(username, secureSlug));
+    } else {
+      return redirect(controllers.routes.Application.forbidden_act("Sorry! Something went wrong when you tried to short the link, please try again the link : " + original));
     }
+  }
 
-    return ok(views.html.shortlink.secure.render(username));
+  public Result customize(String username) {
+
+    String customizedSlug = Form.form().bindFromRequest().get("customizedSlug");
+    String original = Form.form().bindFromRequest().get("originalLink");
+
+    if(request().getHeader("referer") == null || !request().getHeader("referer").contains("/" + username))
+      redirect(controllers.routes.Application.forbidden_act("You are not allowed to access this route directly from the browser"));
+    /*TODO: check if customizedSlug is already in use here*/
+
+    if(original != null && !original.isEmpty() && customizedSlug != null && !customizedSlug.isEmpty()) {
+
+      URL url = new URL();
+      url.set_owner(username);
+      url.set_generated(customizedSlug);
+      url.set_original(original);
+      url.set_creation(LocalDateTime.now());
+      url.set_type('c');
+      url.save();
+
+      return redirect(controllers.routes.Users.result(username, customizedSlug));
+    } else {
+      return redirect(controllers.routes.Application.forbidden_act("Sorry! Something went wrong when you tried to short the link, please try again the link : " + original));
+    }
+  }
+
+  public Result shorten(String username) {
+
+    String shortenedSlug = null;
+    String original = Form.form().bindFromRequest().get("originalLink");
+    System.out.println("At shorten func");
+
+    if(request().getHeader("referer") == null || !request().getHeader("referer").contains("/" + username))
+      return redirect(controllers.routes.Application.forbidden_act("You are not allowed to access this route directly from the browser"));
+    if(original != null && !original.isEmpty()) {
+      Tunnel tnl = new Tunnel();
+      shortenedSlug = tnl.dig(original, username);
+
+      URL url = new URL();
+      url.set_owner(username);
+      url.set_generated(shortenedSlug);
+      url.set_original(original);
+      url.set_creation(LocalDateTime.now());
+      url.set_type('s');
+      url.save();
+
+      return redirect(controllers.routes.Users.result(username, shortenedSlug));
+    } else {
+      return redirect(controllers.routes.Application.forbidden_act("Sorry! Something went wrong when you tried to short the link, please try again the link : " + original));
+    }
   }
 
   public Result temporary(String username) {
@@ -125,40 +130,37 @@ public class Api extends Controller {
     System.out.println("path : " + request().host());
 
     String generated_url = request().host() + userPath + '/' + timedSlug;
-    System.out.println("generated url : " + generated_url);
 
-  //   if(request().getHeader("referer") == null || !request().getHeader("referer").contains("/" + username))
-  //     return forbidden("You are not allowed to access this route directly from the browser");
+    if(request().getHeader("referer") == null || !request().getHeader("referer").contains("/" + username))
+      return redirect(controllers.routes.Application.forbidden_act("You are not allowed to access this route directly from the browser"));
+    /*TODO: check if timed is already in use here*/
 
-  //   /*TODO: check if timed is already in use here*/
+    if(original != null && !original.isEmpty() && timedSlug != null && !timedSlug.isEmpty() && expiration != null && !expiration.isEmpty()) {
+      LocalDateTime d;
+      URL url = new URL();
+      url.set_owner(username);
+      url.set_generated(timedSlug);
+      url.set_original(original);
+      url.set_creation(LocalDateTime.now());
+      url.set_type('t');
+      if(expiration.charAt(0) == 'm') {
+        d = url.get_creation();
+        url.set_expiration(d.plusMinutes(Long.parseLong(expiration.substring(1))));
+      }
+      else if(expiration.charAt(0) == 'h') {
+        d = url.get_creation();
+        url.set_expiration(d.plusHours(Long.parseLong(expiration.substring(1))));
+      }
+      else if(expiration.charAt(0) == 'd') {
+        d = url.get_creation();
+        url.set_expiration(d.plusDays(Long.parseLong(expiration.substring(1))));
+      }
+      url.save();
 
-  //   if(original != null && !original.isEmpty() && timedSlug != null && !timedSlug.isEmpty() && expiration != null && !expiration.isEmpty()) {
-  //     LocalDateTime d;
-  //     URL url = new URL();
-  //     url.set_owner(username);
-  //     url.set_generated(timed);
-  //     url.set_original(original);
-  //     url.set_creation(LocalDateTime.now());
-  //     url.set_type('t');
-  //     if(expiration.charAt(0) == 'm') {
-  //       d = url.get_creation();
-  //       url.set_expiration(d.plusMinutes(Long.parseLong(expiration.substring(1))));
-  //     }
-  //     else if(expiration.charAt(0) == 'h') {
-  //       d = url.get_creation();
-  //       url.set_expiration(d.plusHours(Long.parseLong(expiration.substring(1))));
-  //     }
-  //     else if(expiration.charAt(0) == 'd') {
-  //       d = url.get_creation();
-  //       url.set_expiration(d.plusDays(Long.parseLong(expiration.substring(1))));
-  //     }
-  //     url.save();
-
-  //     return redirect(controllers.routes.Users.result(username, original, timed));
-  //   }
-
-  //   return ok(views.html.shortlink.temporary.render(username));
-    return redirect(userPath);
+      return redirect(controllers.routes.Users.result(username, timedSlug));
+    } else {
+      return redirect(controllers.routes.Application.forbidden_act("Sorry! Something went wrong when you tried to short the link, please try again the link : " + original));
+    }
   }
 
 }

@@ -7,14 +7,13 @@
       <div class="container">
         <div class="row">
           <div class="col-md-8 col-md-offset-1">
-            <h2> Link Short </h2>
+            <h2> Short Link </h2>
             @helper.form(action = routes.Api.shorten(username)){
-              <p>
-                <input type='text' name='originalLink' style ="color:#000000"/> 
-              </p>
-              <p>
-                <input type='submit' name='submitLink' value='Shrink it!' style ="color:#000000"/>
-              </p>
+              <div class="form-group">
+                <label>Original Link : </label>
+                <input class="form-control" type='text' name='originalLink' style ="color:#000000" placeholder="ex: http://www.google.com"/> 
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
             }
           </div>
         </div>
