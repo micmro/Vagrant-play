@@ -26,7 +26,7 @@ public class Users extends Controller {
     String username = session("Username");
     if(username != null && online.contains(username))
     {
-      return redirect(controllers.routes.Application.test());
+      return redirect(controllers.routes.Application.index());
     } else {
       return ok(views.html.user.signin.render());
     }
@@ -40,13 +40,12 @@ public class Users extends Controller {
     if(username != null && !username.isEmpty() && password != null && !password.isEmpty()) {
       if(User.authenticate(username, password)) {
         if(!online.contains(username)) online.add(username);
-        session().remove("Username"); //Para que o session username seja atualizado caso novo usuario de sign in
+        session().remove("Username");
         session("Username",username);
         return redirect(controllers.routes.Users.account(username));
       }
       else
-        flash("login_error","Nome de usuário ou senha inválidos!");
-        return redirect("/signin");
+        return redirect(controllers.routes.Application.forbidden_act("Sorry! Your Username OR Password are incorrect!"));
     }
     return ok(views.html.user.signin.render());
   }
@@ -61,7 +60,7 @@ public class Users extends Controller {
     List<String> generatedUrlList = new ArrayList<>();
 
     for(URL url : listing) {
-      generatedUrlList.add(get_generated_url(url.get_generated(), url.get_owner()));
+      generatedUrlList.add(get_generated_url(url.get_owner(), url.get_generated()));
     }
     return ok(views.html.user.list_all.render(listing,generatedUrlList,username));
   }
@@ -69,9 +68,6 @@ public class Users extends Controller {
   /*NOTE: This method is supposed to handle the 4 types of links!*/
   public Result result(String username, String generatedSlug) {
       String generatedUrl;
-      System.out.println("Estou no result!");
-      System.out.println("Generated slug : " + generatedSlug);
-      System.out.println("Header : " + request().getHeader("referer"));
 
       if(
           request().getHeader("referer") == null || 
@@ -82,11 +78,9 @@ public class Users extends Controller {
             !request().getHeader("referer").contains("slType=temporary")
           )
         ) {
-        System.out.println("Deu errado no result!");
         return redirect(controllers.routes.Application.forbidden_act("You are not allowed to access this route directly from the browser"));
       }
       else {
-        System.out.println("Deu certo no result!");
         generatedUrl = get_generated_url(username, generatedSlug);
         return ok(views.html.user.result.render(generatedUrl, username));
       }
@@ -105,21 +99,19 @@ public class Users extends Controller {
       User user = userForm.get();
       if(user.username_available(user.username)) {
         user.save();
-        /*TODO: Raise message that user was successuly created*/
-        return redirect(controllers.routes.Application.test());
+        return redirect(controllers.routes.Application.index());
       }
       else {
-        /*TODO: Raise error to the view: "Username already in use. Select another!"*/
-        return redirect(controllers.routes.Users.create());
+        return redirect(controllers.routes.Application.forbidden_act("Sorry! This username is already in use"));
       }
     }
   }
 
   public Result signout(String username)
   {
-    online.remove(username);          //Remove da lista de users online
-    session().remove("Username");     //Remove o cookie
-    return redirect(controllers.routes.Application.test());
+    online.remove(username);
+    session().remove("Username");
+    return redirect(controllers.routes.Application.index());
   }
 
   public Result account(String username)
@@ -132,7 +124,6 @@ public class Users extends Controller {
 
   }
 
-  // increase the count +1
   public Result redir(String username, String generatedSlug)
   {
     String real_link = URL.real_link(username, generatedSlug);
@@ -188,7 +179,7 @@ public class Users extends Controller {
         online.remove(username);
       } 
       session().clear();
-      return redirect(controllers.routes.Application.test());
+      return redirect(controllers.routes.Application.index());
     } else {
       flash("login_error","You must be logged in to do that!");
       return redirect(controllers.routes.Users.signin());

@@ -3,8 +3,7 @@
 # ~~~~
 
 # Home page
-#GET     /                              controllers.Application.index()
-GET     /                               controllers.Application.test()
+GET     /                               controllers.Application.index()
 GET     /dig                            controllers.Application.start_dig()
 POST    /dig                            controllers.Application.dig()
 GET     /dig/:link                      controllers.Application.tunnel(link:String)
@@ -24,7 +23,6 @@ GET     /u/:username/:generatedSlug     controllers.Users.result(username:String
 GET     /u/:username                    controllers.Users.account(username:String)
 POST    /bypass_barrier                 controllers.Users.bypass_barrier(generatedSlug:String)
 GET     /done                           controllers.Users.access_granted(username:String, link:String)
-GET     /:link                          controllers.Application.shovel(link:String)
 
 GET     /api/:username/shortlink_base   controllers.Api.shortlinkBase(username:String,slType:String)
 POST    /api/:username/shorten          controllers.Api.shorten(username:String)

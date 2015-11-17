@@ -41,14 +41,14 @@ public class Api extends Controller {
     String password = Form.form().bindFromRequest().get("goldenShovel");
     String original = Form.form().bindFromRequest().get("originalLink");
 
-    System.out.println("secureSlug" + secureSlug);
-    System.out.println("password" + password);
-    System.out.println("original" + original);
     if(request().getHeader("referer") == null || !request().getHeader("referer").contains("/" + username))
       return redirect(controllers.routes.Application.forbidden_act("You are not allowed to access this route directly from the browser"));
-    /*TODO: check if secured is already in use here*/
 
     if(original != null && !original.isEmpty() && secureSlug != null && !secureSlug.isEmpty() && password != null && !password.isEmpty()) {
+
+      if(!original.contains("http://")) { 
+        original = "http://" + original;
+      }
 
       URL url = new URL();
       url.set_owner(username);
@@ -72,9 +72,12 @@ public class Api extends Controller {
 
     if(request().getHeader("referer") == null || !request().getHeader("referer").contains("/" + username))
       redirect(controllers.routes.Application.forbidden_act("You are not allowed to access this route directly from the browser"));
-    /*TODO: check if customizedSlug is already in use here*/
 
     if(original != null && !original.isEmpty() && customizedSlug != null && !customizedSlug.isEmpty()) {
+
+      if(!original.contains("http://")) { 
+        original = "http://" + original;
+      }
 
       URL url = new URL();
       url.set_owner(username);
@@ -94,12 +97,16 @@ public class Api extends Controller {
 
     String shortenedSlug = null;
     String original = Form.form().bindFromRequest().get("originalLink");
-    System.out.println("At shorten func");
 
     if(request().getHeader("referer") == null || !request().getHeader("referer").contains("/" + username))
       return redirect(controllers.routes.Application.forbidden_act("You are not allowed to access this route directly from the browser"));
     if(original != null && !original.isEmpty()) {
       Tunnel tnl = new Tunnel();
+
+      if(!original.contains("http://")) { 
+        original = "http://" + original;
+      }
+
       shortenedSlug = tnl.dig(original, username);
 
       URL url = new URL();
@@ -123,12 +130,6 @@ public class Api extends Controller {
     String original = Form.form().bindFromRequest().get("originalLink");
     String userPath = controllers.routes.Users.account(username).toString();
 
-    System.out.println("timed : " + timedSlug);
-    System.out.println("expiration : " + expiration);
-    System.out.println("original : " + original);
-    System.out.println("userPath : " + userPath);
-    System.out.println("path : " + request().host());
-
     String generated_url = request().host() + userPath + '/' + timedSlug;
 
     if(request().getHeader("referer") == null || !request().getHeader("referer").contains("/" + username))
@@ -136,6 +137,11 @@ public class Api extends Controller {
     /*TODO: check if timed is already in use here*/
 
     if(original != null && !original.isEmpty() && timedSlug != null && !timedSlug.isEmpty() && expiration != null && !expiration.isEmpty()) {
+
+      if(!original.contains("http://")) { 
+        original = "http://" + original;
+      }
+
       LocalDateTime d;
       URL url = new URL();
       url.set_owner(username);

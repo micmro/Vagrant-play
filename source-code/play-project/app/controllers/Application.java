@@ -13,17 +13,13 @@ public class Application extends Controller {
   private Tunnel tnl = new Tunnel();
 
   public Result index() {
-      return ok(index.render("Your new application is ready."));
-  }
-
-  public Result test() {
-      return ok(test.render());
+      return ok(views.html.index.render());
   }
 
   public Result start_dig() {
-    return ok(views.html.dig.render());
+    System.out.println("At Start dig");
+    return ok(views.html.start_dig.render());
   }
-  // Arrumar esse método!
   
   public Result dig() {
     String shortened = null;
@@ -31,8 +27,9 @@ public class Application extends Controller {
     
     if(original != null && !original.isEmpty()) {
       shortened = tnl.dig(original, "");
-      System.out.println("Em dig, : " + shortened);
-      return redirect(controllers.routes.Application.tunnel(shortened));
+      shortened = "http://" + request().host() + "/dig/" + shortened;
+      
+      return ok(views.html.dig_result.render(shortened));
     }
     return redirect(controllers.routes.Application.forbidden_act("Sorry! Something went wrong when you tried to short the link, please try again the link : " + original));
   }
@@ -48,13 +45,13 @@ public class Application extends Controller {
     return ok(views.html.forbidden_act.render(errorMsg));
   }
 
-  public Result tunnel(String shovels) {
-      if(!tnl.have(shovels)) return forbidden();
-      else return ok(tunnel.render(shovels));
-  }
-
-  public Result shovel(String shovels) {
-    if(!tnl.have(shovels)) return forbidden();
-    else return redirect("http://" + tnl.end_point(shovels));
+  public Result tunnel(String generatedSlug) {
+      String original = "http://" + tnl.end_point(generatedSlug);
+      if(original != null && !original.isEmpty()) {
+        return redirect(original);
+      } 
+      else {
+        return redirect(controllers.routes.Application.forbidden_act("Sorry! The link you are trying to access is no longer available"));
+      }
   }
 }
