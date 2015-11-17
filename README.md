@@ -41,3 +41,13 @@ GRANT ALL PRIVILEGES ON DATABASE dwarf TO play;
 \q
 ```
 With the actual configuration in application.conf and installed PostgreSQL, you might be able to run the application using PostgreSQL 9.4.5.
+
+---
+Run Play App
+===
+Inside source-code folder run 
+> activator run  
+
+This commmand will start the web server and the application could be acess via browser through :
+
+> localhost:9000
