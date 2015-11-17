@@ -1,0 +1,7 @@
+1 - Implementar um enum na classe API onde será definido todos os tipos de links, a entrada será através de um get com um if pro tipo de link escolhido pelo usuário, e depois render. Novamente o post acontece numa rota especifica e é especializado de acordo com o tipo.
+2 - Mover toda lógica de geração para o package api.
+3 - Trocar o form de input para o mesmo do /dig
+4 - Testar todos os tipos de links
+5 - Verificar a listagem dos links
+6 - Ver se é possivel mostrar estatísiticas dos links
+7 - colocar mais informações no formulario de cadastro

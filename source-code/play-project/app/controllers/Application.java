@@ -5,7 +5,7 @@ import play.mvc.*;
 import play.data.*;
 import java.util.Map;
 import java.util.Arrays;
-
+import services.Tunnel;
 import views.html.*;
 
 public class Application extends Controller {
@@ -13,29 +13,45 @@ public class Application extends Controller {
   private Tunnel tnl = new Tunnel();
 
   public Result index() {
-      return ok(index.render("Your new application is ready."));
+      return ok(views.html.index.render());
   }
 
-  public Result test() {
-      return ok(test.render());
+  public Result start_dig() {
+    System.out.println("At Start dig");
+    return ok(views.html.start_dig.render());
   }
-
+  
   public Result dig() {
-    String shortened = null, original = Form.form().bindFromRequest().get("originalLink");
+    String shortened = null;
+    String original = Form.form().bindFromRequest().get("originalLink");
+    
     if(original != null && !original.isEmpty()) {
       shortened = tnl.dig(original, "");
-      return redirect(controllers.routes.Application.tunnel(shortened));
+      shortened = "http://" + request().host() + "/dig/" + shortened;
+      
+      return ok(views.html.dig_result.render(shortened));
     }
-    return ok(dig.render());
+    return redirect(controllers.routes.Application.forbidden_act("Sorry! Something went wrong when you tried to short the link, please try again the link : " + original));
   }
 
-  public Result tunnel(String shovels) {
-      if(!tnl.have(shovels)) return forbidden();
-      else return ok(tunnel.render(shovels));
+  public Result forbidden_act(String errorMsg) {
+    if(errorMsg == null) {
+      errorMsg = "Something goes wrong, try to contact the support team.";
+
+    } else if(errorMsg.isEmpty()) {
+      errorMsg = "Something goes wrong, try to contact the support team.";
+    }
+
+    return ok(views.html.forbidden_act.render(errorMsg));
   }
 
-  public Result shovel(String shovels) {
-    if(!tnl.have(shovels)) return forbidden();
-    else return redirect("http://" + tnl.end_point(shovels));
+  public Result tunnel(String generatedSlug) {
+      String original = "http://" + tnl.end_point(generatedSlug);
+      if(original != null && !original.isEmpty()) {
+        return redirect(original);
+      } 
+      else {
+        return redirect(controllers.routes.Application.forbidden_act("Sorry! The link you are trying to access is no longer available"));
+      }
   }
 }

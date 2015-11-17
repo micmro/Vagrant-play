@@ -1,16 +1,12 @@
-package controllers;
+package services;
 
-import play.*;
-import play.mvc.*;
-import play.data.*;
-import views.html.*;
-import models.*;
+import models.URL;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Random;
 
-public class Tunnel extends Controller {
+public class Tunnel {
 
   //Number of possible characters to create the new link. Right now, using a-z, A-Z and 0-9
   private int shovels = 62;
