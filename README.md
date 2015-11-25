@@ -1,6 +1,11 @@
 MAC0332 - Software Engineering Project (IME-USP) [2015]
 =========
-For original description of this repository see ORIGINAL_README.md.
+
+Felipe Souto - 7990422
+Leonardo Schäffer - 7278142
+Mónica Vani Vieira Lopes da Silva - 5998865
+Renan Fichberg - 7991131
+Ricardo Mikio Morita - 5412562
 
 Setup
 ========
