@@ -10,25 +10,25 @@
               Hello, @session.get("Username")! This is your control panel. From here, you can create different types of links.
             </p>
             <div class="list-group">
-                <a class="list-group-item" style="color: inherit;background-color: rgba(31, 29, 29, 0.62);"href="@routes.Api.shortlinkBase(session.get("Username"), "shorten")">
+                <a id="shorten" class="list-group-item" style="color: inherit;background-color: rgba(31, 29, 29, 0.62);"href="@routes.Api.shortlinkBase(session.get("Username"), "shorten")">
                   <h4 class="list-group-item-heading" style="color: inherit;">Short Link</h4>
                   <p class="list-group-item-text">
                     Create a simple shortlink to easy share your contents.
                   </p>
                 </a>
-                <a class="list-group-item" style="color: inherit;background-color: rgba(31, 29, 29, 0.62);"href="@routes.Api.shortlinkBase(session.get("Username"), "temporary")">
+                <a id="temporary" class="list-group-item" style="color: inherit;background-color: rgba(31, 29, 29, 0.62);"href="@routes.Api.shortlinkBase(session.get("Username"), "temporary")">
                   <h4 class="list-group-item-heading" style="color: inherit;">Temporary Link</h4>
                   <p class="list-group-item-text">
                     Create a short link with a expiration time.
                   </p>
                 </a>
-                <a class="list-group-item" style="color: inherit;background-color: rgba(31, 29, 29, 0.62);"href="@routes.Api.shortlinkBase(session.get("Username"), "customize")">
+                <a id="customize" class="list-group-item" style="color: inherit;background-color: rgba(31, 29, 29, 0.62);"href="@routes.Api.shortlinkBase(session.get("Username"), "customize")">
                   <h4 class="list-group-item-heading" style="color: inherit;">Customize Link</h4>
                   <p class="list-group-item-text">
                     Create a short link with a customized phrase.
                   </p>
                 </a>
-                <a class="list-group-item" style="color: inherit;background-color: rgba(31, 29, 29, 0.62);"href="@routes.Api.shortlinkBase(session.get("Username"), "secure")">
+                <a id="secure" class="list-group-item" style="color: inherit;background-color: rgba(31, 29, 29, 0.62);"href="@routes.Api.shortlinkBase(session.get("Username"), "secure")">
                   <h4 class="list-group-item-heading" style="color: inherit;">Secure Link</h4>
                   <p class="list-group-item-text">
                     Create a short link with a password.
