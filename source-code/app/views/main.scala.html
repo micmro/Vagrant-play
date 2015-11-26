@@ -43,11 +43,11 @@
                     <i class="fa fa-bars"></i>
                 </button>
                 @if(session.get("Username") != null) {
-                  <a class="navbar-brand page-scroll" href="@routes.Users.account(session.get("Username"))">
+                  <a id="btnControlPanel" class="navbar-brand page-scroll" href="@routes.Users.account(session.get("Username"))">
                     <i class="fa fa-play-circle"></i>  <span class="light">Control Painel</span>
                   </a>
                 } else {
-                  <a class="navbar-brand page-scroll" href="@routes.Application.dig()">
+                  <a id="btnStart" class="navbar-brand page-scroll" href="@routes.Application.dig()">
                     <i class="fa fa-play-circle"></i>  <span class="light">Start</span> DwarfLINK
                   </a>
                 }
@@ -62,17 +62,17 @@
                     </li>
                     @if(session.get("Username") != null) {
                       <li>
-                          <a href="/">Welcome @session.get("Username")... </a>
+                          <a id="username" href="/">Welcome @session.get("Username")... </a>
                       </li>
                       <li>
-                        <a href="@routes.Users.logout()">Logout</a>
+                        <a id="btnLogout" href="@routes.Users.logout()">Logout</a>
                       </li>
                     } else {
                       <li>
-                        <a href="@routes.Users.signup()">Sign Up</a>
+                        <a id="btnSignup" href="@routes.Users.signup()">Sign Up</a>
                       </li>
                       <li>
-                        <a href="@routes.Users.signin()">Sign In</a>
+                        <a id="btnSignin" href="@routes.Users.signin()">Sign In</a>
                       </li>
                     }
                     <li>

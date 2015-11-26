@@ -21,3 +21,4 @@ server.pid
 *.iml
 *.eml
 *.sublime-workspace
+*.class
