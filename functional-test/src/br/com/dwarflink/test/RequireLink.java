@@ -21,7 +21,7 @@ public class RequireLink {
 
   //HTML elements id
   private static final String CONTROL_PANEL_ID = "btnControlPanel";
-  private static final String START_ID = "btnStart";
+  private static final String BTN_START = "btnStart";
   private static final String BTN_SIGNUP = "btnSignup";
   private static final String BTN_SIGNIN = "btnSignin";
   private static final String BTN_LOGOUT = "btnLogout";
@@ -55,9 +55,22 @@ public class RequireLink {
   private static final String TEMPORARY_SLUG = "wakafoo";
   private static final String TEMPORARY_LIFETIME_SELECT = "lifetime";
 
+  //Customized Link
+  private static final String CUSTOMIZED_LINK_BOX = "customizedSlug";
+  private static final String CUSTOMIZED_SLUG = "foobar";
+
+  //Secure Link
+  private static final String SECURE_LINK_BOX = "secureSlug";
+  private static final String SECURE_SLUG = "foobar";
+  private static final String SECURE_LINK_KEY_BOX = "goldenShovel";
+  private static final String SECURE_LINK_KEY = "gnulinux";
+
   //Original links
   private static final String LINK_1 = "www.google.com.br";
   private static final String LINK_2 = "www.uol.com.br";
+  private static final String LINK_3 = "www.globo.com.br";
+  private static final String LINK_4 = "www.ig.com.br";
+  private static final String LINK_5 = "www.facebook.com";
 
   public static WebDriver signinUsuarioCorreto() {
     
@@ -95,12 +108,14 @@ public class RequireLink {
     WebElement linkBox = driver.findElement(By.id(BTN_SHORT_LINK));
     linkBox.click();
 
+    //Fornece o link a ser encurtado
     WebElement originalLinkBox = driver.findElement(By.name(ORIGINAL_LINK_BOX));
     WebElement btnSubmit = driver.findElement(By.name(BTN_SUBMIT));
 
     originalLinkBox.sendKeys(LINK_1);
     btnSubmit.click();
 
+    //O usuario recebe o seu link encurtado
     boolean shortlinkSucessMsg = driver.getPageSource().contains(SHORT_LINK_SUCESS_MSG);
     assertTrue(shortlinkSucessMsg);
 
@@ -117,9 +132,14 @@ public class RequireLink {
     WebElement linkBox = driver.findElement(By.id(BTN_TEMPORARY_LINK));
     linkBox.click();
 
+    //Fornece o link a ser encurtado
     WebElement originalLinkBox = driver.findElement(By.name(ORIGINAL_LINK_BOX));
+    
+    //Fornece um idenficador para o link temporario
     WebElement temporarylLinkBox = driver.findElement(By.name(TEMPORARY_LINK_BOX));
+    //Fornece o tempo de vida que o link vai ter
     Select lifetime = new Select(driver.findElement(By.name(TEMPORARY_LIFETIME_SELECT)));
+    //Submete o formulario
     WebElement btnSubmit = driver.findElement(By.name(BTN_SUBMIT));
 
     originalLinkBox.sendKeys(LINK_2);
@@ -128,36 +148,96 @@ public class RequireLink {
     btnSubmit.click();
 
 
+    //O usuario recebe o seu link temporario encurtado
     boolean shortlinkSucessMsg = driver.getPageSource().contains(SHORT_LINK_SUCESS_MSG);
     assertTrue(shortlinkSucessMsg);
 
     driver.quit();
   }
   
-  // @Test
-  // public void requisitaLinkCustomizado() {
-  //   //Faz login no sistema
-  //   WebDriver driver = signinUsuarioCorreto();
+  @Test
+  public void requisitaLinkCustomizado() {
+    //Faz login no sistema
+    WebDriver driver = signinUsuarioCorreto();
+    String randomComplement = "-" + RandomStringUtils.randomAscii(4);
 
-  //   //Clica no tipo de link que quer gerar
-  //   WebElement linkBox = driver.findElement(By.id(BTN_CUSTOMIZE_LINK));
-  //   linkBox.click();
+    //Clica no tipo de link que quer gerar
+    WebElement linkBox = driver.findElement(By.id(BTN_CUSTOMIZE_LINK));
+    linkBox.click();
 
+    //Fornece o link a ser encurtado
+    WebElement originalLink = driver.findElement(By.name(ORIGINAL_LINK_BOX));
+    //Fornece um idenficador para o link customizado
+    WebElement customizedSlug = driver.findElement(By.name(CUSTOMIZED_LINK_BOX));
+    //Submete o formulario
+    WebElement btnSubmit = driver.findElement(By.name(BTN_SUBMIT));
 
-  //   driver.quit();
-  // }
+    originalLink.sendKeys(LINK_3);
+    customizedSlug.sendKeys(CUSTOMIZED_SLUG + randomComplement);
+    btnSubmit.click();
+
+    //O usuario recebe o seu link customizado
+    boolean shortlinkSucessMsg = driver.getPageSource().contains(SHORT_LINK_SUCESS_MSG);
+    assertTrue(shortlinkSucessMsg);
+
+    driver.quit();
+  }
   
-  // @Test
-  // public void requisitaLinkSeguro() {
-  //   //Faz login no sistema
-  //   WebDriver driver = signinUsuarioCorreto();
+  @Test
+  public void requisitaLinkSeguro() {
+    //Faz login no sistema
+    WebDriver driver = signinUsuarioCorreto();
+    String randomComplement = "-" + RandomStringUtils.randomAscii(4);
 
-  //   //Clica no tipo de link que quer gerar
-  //   WebElement linkBox = driver.findElement(By.id(BTN_SECURE_LINK));
-  //   linkBox.click();
+    //Clica no tipo de link que quer gerar
+    WebElement linkBox = driver.findElement(By.id(BTN_SECURE_LINK));
+    linkBox.click();
 
+    //Fornece o link a ser encurtado
+    WebElement originalLink = driver.findElement(By.name(ORIGINAL_LINK_BOX));
+    //Fornece um idenficador para o link seguro
+    WebElement secureSlug = driver.findElement(By.name(SECURE_LINK_BOX));
+    //Fornece uma chave de seguranca para o link seguro
+    WebElement secureLinkKey = driver.findElement(By.name(SECURE_LINK_KEY_BOX));
+    //Submete o formulario
+    WebElement btnSubmit = driver.findElement(By.name(BTN_SUBMIT));
 
-  //   driver.quit();
-  // }
+    originalLink.sendKeys(LINK_4);
+    secureSlug.sendKeys(SECURE_SLUG + randomComplement);
+    secureLinkKey.sendKeys(SECURE_LINK_KEY);
+    btnSubmit.click();
+
+    //O usuario recebe o seu link seguro
+    boolean shortlinkSucessMsg = driver.getPageSource().contains(SHORT_LINK_SUCESS_MSG);
+    assertTrue(shortlinkSucessMsg);
+    driver.quit();
+  }
+
+  @Test
+  public void requisitarLinkNaoLogado() {
+    // abre firefox
+    WebDriver driver = new FirefoxDriver();
+    
+    // O usuario acessa a homepage
+    driver.get(APPLICATION_URL);
+
+    //Clica no tipo de link que quer gerar
+    WebElement botaoStart = driver.findElement(By.id(BTN_START));
+    botaoStart.click();
+
+    //Fornece o link a ser encurtado
+    WebElement originalLink = driver.findElement(By.name(ORIGINAL_LINK_BOX));
+    //Submete o formulario
+    WebElement btnSubmit = driver.findElement(By.name(BTN_SUBMIT));
+
+    originalLink.sendKeys(LINK_5);
+    btnSubmit.click();
+
+    //O usuario nao logado recebe seu link encurtado
+    boolean shortlinkSucessMsg = driver.getPageSource().contains(SHORT_LINK_SUCESS_MSG);
+    assertTrue(shortlinkSucessMsg);
+    driver.quit(); 
+
+  }
 
 }
