@@ -1,0 +1,34 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                               controllers.Application.index()
+GET     /dig                            controllers.Application.start_dig()
+POST    /dig                            controllers.Application.dig()
+GET     /dig/:link                      controllers.Application.tunnel(link:String)
+GET     /forbidden                      controllers.Application.forbidden_act(errorMsg:String)
+
+POST    /signup                         controllers.Users.signup()
+GET     /signup                         controllers.Users.create()
+GET     /signin                         controllers.Users.signin()
+POST    /signin                         controllers.Users.login()
+GET     /logout                         controllers.Users.logout()
+
+GET     /sl/:username/:generatedSlug    controllers.Users.redir(username:String, generatedSlug:String)
+
+GET     /u/:username/list_all           controllers.Users.list_all(username:String)
+GET     /u/:username/signout            controllers.Users.signout(username:String)
+GET     /u/:username/:generatedSlug     controllers.Users.result(username:String, generatedSlug:String)
+GET     /u/:username                    controllers.Users.account(username:String)
+POST    /bypass_barrier                 controllers.Users.bypass_barrier(generatedSlug:String)
+GET     /done                           controllers.Users.access_granted(username:String, link:String)
+
+GET     /api/:username/shortlink_base   controllers.Api.shortlinkBase(username:String,slType:String)
+POST    /api/:username/shorten          controllers.Api.shorten(username:String)
+POST    /api/:username/customize        controllers.Api.customize(username:String)
+POST    /api/:username/secure           controllers.Api.secure(username:String)
+POST    /api/:username/temporary        controllers.Api.temporary(username:String)
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file                   controllers.Assets.versioned(path="/public", file: Asset)

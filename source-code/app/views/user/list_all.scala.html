@@ -1,0 +1,38 @@
+@(listing: List[URL])(generatedUrlList: List[String])(username: String)
+@main("DwarfLINK - Try it now!") {
+  <!-- Intro Header -->
+  <div class="intro">
+    <div class="intro-body">
+      <div class="container">
+        <div class="row">
+          <div class="panel panel-default" style="color: inherit;height: 500px;overflow: auto;background-color: rgba(31, 29, 29, 0.44); font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;">
+            <!-- Default panel contents -->
+            <div class="panel-heading" style="background-color: rgba(31, 29, 29, 0.62);color: inherit">Generated Shortlink List</div>
+            <!-- Table -->
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th style="text-align: center;">Original Link</th>
+                  <th style="text-align: center;">Short Link</th>
+                  <th style="text-align: center;">Type*</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for(i <- 0 until listing.length) {
+                  <tr>
+                    <th scope="row">@(i+1)</th>
+                    <td><a href="@listing(i).get_original">@listing(i).get_original</a></td>
+                    <td><a href="@generatedUrlList(i)">@generatedUrlList(i)</a></td>
+                    <td><a href="@generatedUrlList(i)">@listing(i).get_type()</a></td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+          <p style="text-align: left; font-size: 16px;">*Types : s (shortlink), t (temporary), c (customized), p (secure) </p>
+        </div>
+      </div>
+    </div>
+  </div>
+}

@@ -1,0 +1,21 @@
+@main("DwarfLINK - Try it now!") {
+  <!-- Intro Header -->
+  <div class="intro">
+    <div class="intro-body">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 col-md-offset-1">
+            <h2> Shortner Link </h2>
+            @helper.form(action = routes.Application.dig()){
+              <div class="form-group">
+                <label>Original Link : </label>
+                <input class="form-control" type='text' name='originalLink' style ="color:#000000" placeholder="ex: http://www.google.com"/> 
+              </div>
+              <button name='submitLink' type="submit" class="btn btn-primary">Submit</button>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+}
