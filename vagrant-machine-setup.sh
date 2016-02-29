@@ -182,7 +182,7 @@ echo "Redis version"
 redis-server -v
 echo " "
 echo "PostgreSQL version"
-psql -v
+psql --version
 echo " "
 echo "mongoDB version"
 mongod --version
