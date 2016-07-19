@@ -19,6 +19,12 @@ Vagrant.configure(2) do |config|
   # http://www.vagrantbox.es/
   # config.vm.box_url = "http://files.vagrantup.com/trusty64.box"
 
+  if Vagrant.has_plugin?("vagrant-cachier")
+      # Configure cached packages to be shared between instances of the same base box.
+      # More info on http://fgrehm.viewdocs.io/vagrant-cachier/usage
+      config.cache.scope = :box
+  end
+
   # configurating the vm
   config.vm.provider "virtualbox" do |v|
     v.name = "activator-project-in-trusty64"
