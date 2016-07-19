@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 #variables
-activatorVersion="1.3.5"
-sbtVersion="0.13.9"
+activatorVersion="1.3.10"
+sbtVersion="0.13.11"
 
 echo "=========================================="
 echo "Provision VM START"
@@ -125,12 +125,12 @@ echo "export SBT_OPTS=\"\$SBT_OPTS -Dsbt.jse.engineType=Node\"" >> ~/.bashrc
 ###############################################
 cd /home/vagrant
 echo "Download Typesafe Activator..."
-wget http://downloads.typesafe.com/typesafe-activator/$activatorVersion/typesafe-activator-$activatorVersion-minimal.zip
-unzip -d /home/vagrant typesafe-activator-$activatorVersion-minimal.zip
-rm typesafe-activator-$activatorVersion-minimal.zip
+wget http://downloads.typesafe.com/typesafe-activator/$activatorVersion/typesafe-activator-$activatorVersion.zip
+unzip -d /home/vagrant typesafe-activator-$activatorVersion.zip
+rm typesafe-activator-$activatorVersion.zip
 echo "Typesafe Activator done."
 # Add activator to environment variables
-echo "export PATH=/home/vagrant/activator-$activatorVersion-minimal:\$PATH" >> ~/.bashrc
+echo "export PATH=/home/vagrant/activator-dist-$activatorVersion/bin:\$PATH" >> ~/.bashrc
 
 ###############################################
 # Reset bash
